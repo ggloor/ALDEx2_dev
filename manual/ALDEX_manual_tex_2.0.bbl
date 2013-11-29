@@ -1,0 +1,47 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Aitchison:1986}
+Aitchison J (1986) The Statistical Analysis of Compositional Data.
+\newblock Chapman \& Hall.
+\bibAnnoteFile{Aitchison:1986}
+
+\bibitem{aitchisonconcise}
+Aitchison J (2003).
+\newblock A concise guide to compositional data analysis.
+\newblock
+  \urlprefix\url{http://ima.udg.edu/Activitats/CoDaWork05/A\_concise\_guide\_to\_compositional\_data\_analysis.pdf}.
+\bibAnnoteFile{aitchisonconcise}
+
+\bibitem{fernandes:2013}
+Fernandes AD, Macklaim JM, Linn T, Reid G, Gloor GB (2013) Anova-like
+  differential expression (aldex) analysis for mixed population rna-seq.
+\newblock PLoS ONE 8: e67019.
+\bibAnnoteFile{fernandes:2013}
+
+\bibitem{Bottomly:2011}
+Bottomly D, Walter NAR, Hunter JE, Darakjian P, Kawane S, et~al. (2011)
+  Evaluating gene expression in c57bl/6j and dba/2j mouse striatum using
+  rna-seq and microarrays.
+\newblock PLoS One 6: e17820.
+\bibAnnoteFile{Bottomly:2011}
+
+\bibitem{Soneson:2013}
+Soneson C, Delorenzi M (2013) A comparison of methods for differential
+  expression analysis of rna-seq data.
+\newblock BMC Bioinformatics 14: 91.
+\bibAnnoteFile{Soneson:2013}
+
+\end{thebibliography}

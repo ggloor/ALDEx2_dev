@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2013)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: ALDEX_manual_tex_2.0.aux
+The style file: plos2009.bst
+Database file #1: bibdesk_refs.bib
+Warning--entry type for "aitchisonconcise" isn't style-file defined
+--line 12 of file bibdesk_refs.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 5 entries,
+            2441 wiz_defined-function locations,
+            572 strings with 5450 characters,
+and the built_in function-call counts, 3265 in all, are:
+= -- 277
+> -- 60
+< -- 0
++ -- 30
+- -- 15
+* -- 255
+:= -- 392
+add.period$ -- 11
+call.type$ -- 5
+change.case$ -- 4
+chr.to.int$ -- 0
+cite$ -- 10
+duplicate$ -- 330
+empty$ -- 348
+format.name$ -- 18
+if$ -- 715
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 50
+newline$ -- 41
+num.names$ -- 5
+pop$ -- 73
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 38
+stack$ -- 0
+substring$ -- 390
+swap$ -- 92
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 26
+width$ -- 6
+write$ -- 68
+(There was 1 warning)

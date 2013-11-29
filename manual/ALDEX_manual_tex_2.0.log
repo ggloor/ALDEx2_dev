@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  29 NOV 2013 17:22
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.5.30)  29 NOV 2013 17:27
 entering extended mode
- \write18 enabled.
+ restricted \write18 enabled.
  %&-line parsing enabled.
 **ALDEX_manual_tex_2.0.tex
 (./ALDEX_manual_tex_2.0.tex
@@ -31,13 +31,13 @@ Package: amsbsy 1999/11/29 v1.2d
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count79
+\inf@bad=\count80
 LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count80
-\leftroot@=\count81
+\uproot@=\count81
+\leftroot@=\count82
 LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count82
-\DOTSCASE@=\count83
+\classnum@=\count83
+\DOTSCASE@=\count84
 LaTeX Info: Redefining \ldots on input line 378.
 LaTeX Info: Redefining \dots on input line 381.
 LaTeX Info: Redefining \cdots on input line 466.
@@ -46,15 +46,15 @@ LaTeX Info: Redefining \cdots on input line 466.
 \big@size=\dimen106
 LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count84
-\c@MaxMatrixCols=\count85
+\macc@depth=\count85
+\c@MaxMatrixCols=\count86
 \dotsspace@=\muskip10
-\c@parentequation=\count86
-\dspbrk@lvl=\count87
+\c@parentequation=\count87
+\dspbrk@lvl=\count88
 \tag@help=\toks15
-\row@=\count88
-\column@=\count89
-\maxfields@=\count90
+\row@=\count89
+\column@=\count90
+\maxfields@=\count91
 \andhelp@=\toks16
 \eqnshift@=\dimen107
 \alignsep@=\dimen108
@@ -84,14 +84,14 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 \copyins=\insert233
 \abstractbox=\box28
 \listisep=\skip45
-\c@part=\count91
-\c@section=\count92
-\c@subsection=\count93
-\c@subsubsection=\count94
-\c@paragraph=\count95
-\c@subparagraph=\count96
-\c@figure=\count97
-\c@table=\count98
+\c@part=\count92
+\c@section=\count93
+\c@subsection=\count94
+\c@subsubsection=\count95
+\c@paragraph=\count96
+\c@subparagraph=\count97
+\c@figure=\count98
+\c@table=\count99
 \abovecaptionskip=\skip46
 \belowcaptionskip=\skip47
 \captionindent=\dimen113
@@ -114,7 +114,7 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 )
 (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package ifpdf Info: pdfTeX in PDF mode is not detected.
 )
 (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
@@ -123,9 +123,9 @@ Package ifvtex Info: VTeX not detected.
 (/usr/local/texlive/2013/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count99
-\Gm@cntv=\count100
-\c@Gm@tempcnt=\count101
+\Gm@cnth=\count100
+\Gm@cntv=\count101
+\c@Gm@tempcnt=\count102
 \Gm@bindingoffset=\dimen114
 \Gm@wd@mp=\dimen115
 \Gm@odd@mp=\dimen116
@@ -148,18 +148,11 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 (/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: xetex.def on input line 91.
 
-(/usr/local/texlive/2013/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+(/usr/local/texlive/2013/texmf-dist/tex/xelatex/xetex-def/xetex.def
+File: xetex.def 2013/04/29 v0.96 LaTeX color/graphics driver for XeTeX (RRM/JK)
 
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count102
 ))
 \Gin@req@height=\dimen122
 \Gin@req@width=\dimen123
@@ -173,12 +166,18 @@ Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
 (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
 (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 
 (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)))
 (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 
@@ -201,20 +200,15 @@ Package etexcmds Info: Could not find \expanded.
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: pdfTeX >= 1.30 not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package pdftexcmds Info: \pdfdraftmode not found.
 )
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
 
-(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-)))
-(/usr/local/texlive/2013/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+Package epstopdf Warning: Drivers other than `pdftex.def' are not supported.
+
+)) (/usr/local/texlive/2013/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen124
 \WF@size=\dimen125
 \c@WF@wrappedlines=\count103
@@ -240,7 +234,7 @@ Package caption Info: AMS or SMF document class.
 \c@ContinuedFloat=\count104
 Package caption Info: wrapfig package is loaded.
 )
-No file ALDEX_manual_tex_2.0.aux.
+(./ALDEX_manual_tex_2.0.aux)
 \openout1 = `ALDEX_manual_tex_2.0.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
@@ -256,6 +250,7 @@ LaTeX Font Info:    ... okay on input line 21.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 LaTeX Font Info:    Try loading font information for U+msa on input line 21.
+
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
@@ -265,9 +260,9 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 *geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
+*geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
+* driver: xetex
 * paper: letterpaper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -298,54 +293,9 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count105
-\scratchdimen=\dimen133
-\scratchbox=\box30
-\nofMPsegments=\count106
-\nofMParguments=\count107
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count108
-\MPscratchDim=\dimen134
-\MPnumerator=\count109
-\makeMPintoPDFobject=\count110
-\everyMPtoPDFconversion=\toks29
-)
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-
-
-LaTeX Warning: Citation `Aitchison:1986' on page 1 undefined on input line 27.
-
-
-LaTeX Warning: Citation `Aitchison:1986' on page 1 undefined on input line 27.
-
-
-LaTeX Warning: Citation `aitchisonconcise' on page 1 undefined on input line 27
-.
-
-
-LaTeX Warning: Citation `fernandes:2013' on page 1 undefined on input line 31.
-
-[1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `fernandes:2013' on page 2 undefined on input line 35.
-
-
-LaTeX Warning: Citation `fernandes:2013' on page 2 undefined on input line 48.
-
-
-LaTeX Warning: Citation `Aitchison:1986' on page 2 undefined on input line 50.
-
-[2]
-
-LaTeX Warning: Citation `Bottomly:2011' on page 3 undefined on input line 53.
-
-
-LaTeX Warning: Citation `Soneson:2013' on page 3 undefined on input line 55.
-
-
+[1] [2]
 Underfull \hbox (badness 10000) in paragraph at lines 65--68
 
  []
@@ -399,10 +349,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 93--95
 Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
-
-
-LaTeX Warning: Citation `fernandes:2013' on page 4 undefined on input line 104.
-
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 104--105
@@ -583,9 +529,6 @@ Overfull \hbox (45.90561pt too wide) in paragraph at lines 140--148
  []
 
 
-LaTeX Warning: Reference `bottomly1' on page 5 undefined on input line 149.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
@@ -595,22 +538,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 151--152
 
  []
 
-
-</Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/bottomly_welches_lfdr.pdf, id
-=25, 505.89pt x 505.89pt>
 File: /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/bottomly_welches_lfdr.pd
-f Graphic file (type pdf)
+f Graphic file (type QTm)
 
-<use /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/bottomly_welches_lfdr.pdf
->
-Package pdftex.def Info: /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/botto
-mly_welches_lfdr.pdf used on input line 156.
-(pdftex.def)             Requested size: 352.31625pt x 352.32199pt.
-
-
-LaTeX Warning: Reference `bottomly1' on page 5 undefined on input line 162.
-
-
+<use  "/Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/bottomly_welches_lfdr.p
+df" >
 Underfull \hbox (badness 4846) in paragraph at lines 162--163
 \OT1/cmr/m/n/10.95 red is a false dis-
  []
@@ -635,22 +567,10 @@ Underfull \hbox (badness 1112) in paragraph at lines 164--165
 \OT1/cmr/m/n/10.95 the density-based lo-
  []
 
-
-LaTeX Warning: Citation `fernandes:2013' on page 5 undefined on input line 166.
-
-
-[5 </Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/bottomly_welches_lfdr.pdf>
-]
-</Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/aldex2_mw.pdf, id=36, 505.89p
-t x 505.89pt>
+[5]
 File: /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/aldex2_mw.pdf Graphic fi
-le (type pdf)
-
-<use /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/aldex2_mw.pdf>
-Package pdftex.def Info: /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/aldex
-2_mw.pdf used on input line 170.
-(pdftex.def)             Requested size: 352.31625pt x 352.32199pt.
-
+le (type QTm)
+ <use  "/Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/aldex2_mw.pdf" >
 Underfull \hbox (badness 1221) in paragraph at lines 178--179
 [][]\OT1/cmr/m/n/10.95 When the num-ber
  []
@@ -686,9 +606,6 @@ Underfull \hbox (badness 4899) in paragraph at lines 178--179
  []
 
 
-LaTeX Warning: Reference `bottomly2' on page 6 undefined on input line 180.
-
-
 Underfull \hbox (badness 2213) in paragraph at lines 180--181
 []\OT1/cmr/m/n/10.95 In any event, we
  []
@@ -706,6 +623,11 @@ Underfull \hbox (badness 1412) in paragraph at lines 180--181
 
 Underfull \hbox (badness 1259) in paragraph at lines 180--181
 \OT1/cmr/m/n/10.95 si-ble are in be-tween
+ []
+
+
+Underfull \hbox (badness 2538) in paragraph at lines 180--181
+\OT1/cmr/m/n/10.95 Fig-ure 2[] it can be
  []
 
 
@@ -743,51 +665,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 182--183
 
  []
 
-[6 </Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/aldex2_mw.pdf>]
-</Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/selex_mw.pdf, id=47, 505.89pt
- x 505.89pt>
+[6]
 File: /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/selex_mw.pdf Graphic fil
-e (type pdf)
+e (type QTm)
+ <use  "/Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/selex_mw.pdf" >
+[7] (./ALDEX_manual_tex_2.0.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 22--27
+[]\OT1/cmr/m/n/9 Aitchison J (2003). A con-cise guide to com-po-si-tional data 
+anal-y-sis. URL
+ []
 
-<use /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/selex_mw.pdf>
-Package pdftex.def Info: /Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/selex
-_mw.pdf used on input line 186.
-(pdftex.def)             Requested size: 433.62pt x 433.62885pt.
- [7 </Users/ggloor/Documents/LaTeX/ALDEx/t-test_aldex/selex_mw.pdf>]
-
-LaTeX Warning: Reference `selex' on page 8 undefined on input line 214.
-
-No file ALDEX_manual_tex_2.0.bbl.
-[8] (./ALDEX_manual_tex_2.0.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+) [8] (./ALDEX_manual_tex_2.0.aux) ) 
 Here is how much of TeX's memory you used:
- 4459 strings out of 493315
- 64560 string characters out of 6137904
- 139507 words of memory out of 5000000
- 7695 multiletter control sequences out of 15000+600000
- 12559 words of font info for 48 fonts, out of 8000000 for 9000
- 1118 hyphenation exceptions out of 8191
+ 4006 strings out of 493938
+ 57570 string characters out of 6148857
+ 132177 words of memory out of 5000000
+ 7093 multiletter control sequences out of 15000+600000
+ 12726 words of font info for 49 fonts, out of 8000000 for 9000
+ 1305 hyphenation exceptions out of 8191
  42i,8n,38p,1570b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/l
-ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loc
-al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loca
-l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on ALDEX_manual_tex_2.0.pdf (8 pages, 626006 bytes).
-PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
+Output written on ALDEX_manual_tex_2.0.pdf (8 pages).
