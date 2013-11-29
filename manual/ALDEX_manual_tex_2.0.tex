@@ -7,7 +7,8 @@
 \usepackage{amssymb}
 \usepackage{epstopdf}
 \usepackage{wrapfig}
-\usepackage[margin=10pt,font=small,labelfont=bf,               labelsep=colon]{caption}
+\usepackage[margin=10pt,font=small,labelfont=bf,
+               labelsep=colon]{caption}
 
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -31,7 +32,7 @@ The underpinnings of ALDEx and ALDEx2 are explained in Fernandes et al\cite{fern
 
 The authors appreciate bug reports or suggestions for improvement to the package, although suggestions should be focussed on improving the performance of the package. We do not expect to introduce a large number of new features in the near term. We are working on adding in multiple group testing, but this requires a re-write of the effect size calculation.
 
-\subsection{Differences with the version discussed in Fernandes et al.\cite{fernandes:2013}}  With the release of R version 3, memory management appears to be much better. In addition, we have corrected two bugs in the code. The major bug was identified by Jean Macklaim, and restricted the experimental design in some cases to 2x2 data comparisons. We have successfully run ALDEx version 1.0.4 on an 8x8 meta-RNA-seq comparison composed of 3200 functional groups with mc.samples set to 2048. This consumes slightly over 12 Gb of RAM on OS X 10.8. ALDEx2  requires substantially less memory and can accordingly be run over even larger datasets. ALDEx v1.0.4 is available at: \begin{verbatim}http://reg.biochem.fmd.uwo.ca/~ggloor/ALDEx.zip.\end{verbatim} No further changes other than bug fixes are expected for that version. 
+\subsection{Differences with the version discussed in Fernandes et al.\cite{fernandes:2013}}  With the release of R version 3, memory management appears to be much better. In addition, we have corrected two bugs in the code. The major bug was identified by Jean Macklaim, and restricted the experimental design in some cases to 2x2 data comparisons. We have successfully run ALDEx version 1.0.4 on an 8x8 meta-RNA-seq comparison composed of 3200 functional groups with mc.samples set to 2048. This consumes slightly over 12 Gb of RAM on OS X 10.8. ALDEx2  requires substantially less memory and can accordingly be run over even larger datasets. ALDEx v1.0.4 is available at: \begin{verbatim}https://github.com/ggloor/ALDEx2/blob/master/ALDEx_1.0.4.tar.gz\end{verbatim} No further changes other than bug fixes are expected for that version. 
 
 It is important to note that ALDEx2 can also be somewhat memory intensive. It can require a large amount of memory if there are a large number of features, a large number of replicates, or if there are a large number of Dirichlet samples generated. It is best \emph{not} to try and run ALDEx2 on a machine with limited memory. ALDEx2 estimates Expected values only. It is also important to note that both versions of ALDEx use Bayesian sampling from a Dirichlet distribution to estimate  the underlying technical variation. This is controlled by the mc.samples, in practice we find that setting this to 128 is sufficient for most cases as ALDEx2 is estimating the Expected value of the distributions. The user is cautioned that the number of features called as differential will differ somewhat between runs because of the sampling procedure. This is expected because features with values close to the chosen significance cutoff will vary between runs because the values are estimated from the Dirichlet distribution. 
 
