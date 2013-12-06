@@ -402,7 +402,7 @@ summary.aldex <- function( object, ... ) {
     if ( ! is.null( a[["digits"]] ))        digits <- a$digits
     if ( ! is.null( a[["sort"]] ))          sort <- a$sort
     if ( ! is.null( a[["median.only"]] ))   median.only <- a$median.only
-    if ( ! is.null( a[["minimal.only"]] ))   minimal.only <- a$median.only
+    if ( ! is.null( a[["minimal.only"]] ))   minimal.only <- a$minimal.only
     
     y <- data.frame(x)
     yn <- names(y)
