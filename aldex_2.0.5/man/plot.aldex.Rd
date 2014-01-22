@@ -9,11 +9,12 @@
 \usage{
     \method{plot}{aldex}( x, ..., type=c("MW","MA","hist"),
     xlab=NULL, ylab=NULL, xlim=NULL, ylim=NULL,
-    nbin=256, nrpoints=Inf, col=rgb(0,0,0,0.4), pch='.',
-    signif.col="cyan", signif.pch=20, signif.cex=0.4,
+    nbin=256, nrpoints=Inf, col=rgb(0.3,0.3,0.3,0.4), pch='.',
+    signif.col="cyan", signif.pch=20, signif.cex=0.5,
     called.col="red", called.pch=20, called.cex=0.5,
-    thres.line.col="darkgrey", thres.lwd=1.5, fdr="qval", 
-    test="welches", cutoff=0.1)
+    thres.line.col=rgb(0.3,0.3,0.3,0.5), thres.lwd=1.5, fdr = "BH",
+    test="welches", cutoff=0.1, rare.col=black, rare=0,
+    rare.pch=20, rare.cex=0.1 )
 }
 \arguments{
     \item{x}{
@@ -24,6 +25,15 @@
     }
     \item{type}{
         which type of plot is to be produced. MA is a Bland-Altman style plot; MW is a difference between to a variance within plot as described in the paper; hist is a histogram of p values
+    }
+    \item{test}{
+        the method of calculating p values, one of welches t-test or wilcoxon
+    }
+    \item{fdr}{
+        the method of characterizing fdr, one of BH or lfdr for Benjamini-Hochberg or Strimmer's LFDR 
+    }
+    \item{cutoff}{
+        the fdr cutoff, default 0.1 
     }
     \item{xlab}{
         the x-label for the plot, as per the parent \code{plot} function
@@ -59,13 +69,13 @@
         the character expansion of `significant' points
     }
     \item{called.col}{
-        the colour of points with local false discovery rate <= 0.1
+        the colour of points with false discovery rate <= 0.1
     }
     \item{called.pch}{
-        the symbol of points with local false discovery rate <= 0.1
+        the symbol of points with false discovery rate <= 0.1
     }
     \item{called.cex}{
-        the character expansion of points with local false discovery rate <= 0.1
+        the character expansion of points with false discovery rate <= 0.1
     }
     \item{thres.line.col}{
         the colour of the threshold line where within and between group variation is equivalent
@@ -73,15 +83,19 @@
     \item{thres.lwd}{
         the width of the threshold line where within and between group variation is equivalent
     }
-    \item{test}{
-        the method of calculating p values, one of welches or wilcox
+    \item{rare.col}{
+        color for features less abundant than the mean, default darkblue
     }
-    \item{fdr}{
-        the method of characterizing fdr, one of qval or lfdr 
+    \item{rare}{
+        cutoff for rare features, default 0 or the mean abundance 
     }
-    \item{cutoff}{
-        the fdr cutoff, default 0.1 
+    \item{rare.pch}{
+        the default symbol of rare points
     }
+    \item{rare.cex}{
+        the character expansion of rare points
+    }
+
 }
 \details{
     This particular specialization of the \code{plot} function is relatively simple and provided for convenience. For more advanced control of the plot is is best to use the values returned by \code{summary(x)}.

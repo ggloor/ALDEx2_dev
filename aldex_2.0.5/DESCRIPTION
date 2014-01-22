@@ -1,7 +1,7 @@
 Package: ALDEx2
 Type: Package
 Title: ANOVA-Like Differential Gene Expression Analysis of Single-Organism and Meta-RNA-Seq
-Version: 2.0.5
+Version: 2.0.5.2
 Depends: R (>= 2.15.0), fdrtool
 Date: 2013-11-08
 Copyright: Andrew Fernandes and Gregory Gloor

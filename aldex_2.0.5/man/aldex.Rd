@@ -8,7 +8,7 @@
 }
 \usage{
     aldex( reads, conditions,
-           mc.samples=128, gene.ratios=FALSE, ratio.method="" )
+           mc.samples=128, paired.test=FALSE, gene.ratios=FALSE, ratio.method="" )
 }
 \arguments{
     \item{reads}{
@@ -20,6 +20,9 @@
     }
     \item{mc.samples}{
         the number of Monte Carlo samples to use to estimate the underlying distributions; since we are estimating central tendencies, 128 is usually sufficient
+    }
+    \item{paired.test}{
+        whether to perform a paired or unpaired t-test, default=FALSE
     }
 	\item{gene.ratios}{
 		If \code{gene.ratios=TRUE}, ALDEx will compare the expression ratio of pairs of genes between conditions, instead of expression of single genes. If \code{gene.ratios=TRUE}, \code{ratio.method} must be defined. Examples of uses for this mode include comparing sense:antisense transcription ratios for multiple genes between conditions, or comparing the transcription in riboswitches to their downstream genes and observing if that changes between conditions.
@@ -85,7 +88,7 @@ Note that \code{lfdr.cutoff} is provided for convenience only; the Boolean colum
 
     # reads <- read.delim( file="file_as_above.tsv" )
     # conditions <- c( "T", "T", "T", "T", "N", "N", "N" )
-    # x   <- x <- aldex( reads, conditions, mc.samples=128, lfdr.cutoff=0.1, test="wilcox" )
+    # x   <- x <- aldex( reads, conditions, mc.samples=128)
     # 
     # par( pty='s', mfrow=c(1,2) )
     # plot( x, type="MA" )

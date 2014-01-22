@@ -3,23 +3,14 @@
 #conditions <- c("NS", "NS","NS","NS","NS","NS","NS","S","S","S","S","S","S","S") 
 #
 ##invocation:
-##x <- aldex( reads, conditions, mc.samples=128, lfdr.cutoff=0.1, test="wilcox", fdr="qval")
+##x <- aldex( reads, conditions, mc.samples=128)
 #
 #this version calculates both p, q and lfdr for wilcox and welches
 #this version allows exploratory plotting of these values to choose appropriate cutoff values
-
-#requires rdirichlet
-"rdirichlet" <-
-  function(n, alpha) {
-    l <- length(alpha)
-    x <- matrix(rgamma(l*n,alpha),ncol=l,byrow=TRUE)
-    sm <- x%*%rep(1,l)
-    return(x/as.vector(sm))
-  }
   
 #the cutoff, test and fdr method are used for plotting and summary purposes only
 #jmd: removed test, fdr, ldfr cutoff; added gene.ratios mode and associated ratio.methods
-aldex <- function( reads, conditions, mc.samples=128, gene.ratios=FALSE, ratio.method="") {
+aldex <- function( reads, conditions, mc.samples=128, paired.test=FALSE, gene.ratios=FALSE, ratio.method="") {
 
 
     # The 'reads' data.frame MUST have row
@@ -152,6 +143,8 @@ aldex <- function( reads, conditions, mc.samples=128, gene.ratios=FALSE, ratio.m
 	if ( length( setA ) < 3 ) stop("require at least 3 replicates in set A")
     if ( length( setB ) < 3 ) stop("require at least 3 replicates in set B")
 
+	if ( paired.test == TRUE && length( setA ) != length(setB) ) stop("must be same number of samples for paired t-test")
+
     for ( l in levels( conditions ) ) {
         levels[[l]] <- which( conditions == l )
         if ( length( levels[[l]] ) <3 ) stop("condition level '",l,"' has less than three replicates")
@@ -203,19 +196,19 @@ aldex <- function( reads, conditions, mc.samples=128, gene.ratios=FALSE, ratio.m
 #JMD: sizes are different if gene.ratios==TRUE
 if (gene.ratios==FALSE) {
 	we.tfdr.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples)
-	we.tqval.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples)
 	we.p.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples)
-
+	we.tBH.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples) #benjamini-hochberg
+		
 	wi.tfdr.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples)
-	wi.tqval.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples)
+	wi.tBH.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples)
 	wi.p.matrix =  matrix(data=NA, nrow=nrow(reads), ncol=mc.samples)
 } else {
 	we.tfdr.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
-	we.tqval.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
+	we.tBH.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
 	we.p.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
 
 	wi.tfdr.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
-	wi.tqval.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
+	wi.tBH.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
 	wi.p.matrix =  matrix(data=NA, nrow=nrow(reads)/2, ncol=mc.samples)
 	}
 
@@ -251,16 +244,16 @@ for(mc.i in 1:mc.samples){
 		wi.p.matrix[,mc.i] <- as.numeric(x[,1])
 		wi.f <- (fdrtool(as.numeric(x[,1]), statistic="pvalue", plot=FALSE, color.figure=FALSE, verbose=FALSE))
 
-		x <- t(apply(t.input.data, 1, function(t.input.data){as.numeric(t.test(x=t.input.data[setA],y=t.input.data[setB])[1:3])}))
+		wi.tfdr.matrix[,mc.i] <- as.numeric(wi.f$lfdr)
+		wi.tBH.matrix[,mc.i] <- as.numeric(p.adjust(x[,1], method="BH"))
+
+		x <- t(apply(t.input.data, 1, function(t.input.data){as.numeric(t.test(x=t.input.data[setA],y=t.input.data[setB], paired=paired.test)[1:3])}))
 		#save the values
 		we.p.matrix[,mc.i] <- x[,3]
 		we.f <- (fdrtool(x[,3], statistic="pvalue", plot=FALSE, color.figure=FALSE, verbose=FALSE))	
 
-	we.tfdr.matrix[,mc.i] <- as.numeric(we.f$lfdr)
-	we.tqval.matrix[,mc.i] <- as.numeric(we.f$qval)
-
-	wi.tfdr.matrix[,mc.i] <- as.numeric(wi.f$lfdr)
-	wi.tqval.matrix[,mc.i] <- as.numeric(wi.f$qval)
+		we.tfdr.matrix[,mc.i] <- as.numeric(we.f$lfdr)
+		we.tBH.matrix[,mc.i] <- as.numeric(p.adjust(x[,3], method="BH"))
 	
 	
 }
@@ -268,11 +261,12 @@ for(mc.i in 1:mc.samples){
 #get the Expected values of p, q and lfdr
 we.ep <- apply(we.p.matrix, 1, mean)
 we.elfdr <- apply(we.tfdr.matrix,1,mean)
-we.eq <- apply(we.tqval.matrix,1,mean)
+we.eBH <- apply(we.tBH.matrix,1,mean)
+
 
 wi.ep <- apply(wi.p.matrix, 1, mean)
 wi.elfdr <- apply(wi.tfdr.matrix,1,mean)
-wi.eq <- apply(wi.tqval.matrix,1,mean)
+wi.eBH <- apply(wi.tBH.matrix,1,mean)
 
 
 #############
@@ -394,12 +388,12 @@ wi.eq <- apply(wi.tqval.matrix,1,mean)
         effect = effect,
         criteria = data.frame(
             we.pval = we.ep,
-            we.qval = we.eq,
             we.lfdr = we.elfdr,
+            we.BH = we.eBH,
 
             wi.pval = wi.ep,
-            wi.qval = wi.eq,
             wi.lfdr = wi.elfdr,
+            wi.BH = wi.eBH,
 
         	row.names    = rn
         )
@@ -414,33 +408,35 @@ wi.eq <- apply(wi.tqval.matrix,1,mean)
 
 plot.aldex <- function( x, ..., type=c("MW","MA","hist"),
     xlab=NULL, ylab=NULL, xlim=NULL, ylim=NULL,
-    nbin=256, nrpoints=Inf, col=rgb(0,0,0,0.4), pch='.',
-    signif.col="cyan", signif.pch=20, signif.cex=0.4,
+    nbin=256, nrpoints=Inf, col=rgb(0.3,0.3,0.3,0.4), pch='.',
+    signif.col="cyan", signif.pch=20, signif.cex=0.5,
     called.col="red", called.pch=20, called.cex=0.5,
-    thres.line.col="darkgrey", thres.lwd=1.5, fdr = "qval",
-    test="welches", cutoff=0.1
+    thres.line.col=rgb(0.3,0.3,0.3,0.5), thres.lwd=1.5, fdr = "BH",
+    test="welches", cutoff=0.1, rare.col="black", rare=0,
+    rare.pch=20, rare.cex=0.1
 ) {
 
     stopifnot( inherits( x, "aldex" ) )
 
     type <- match.arg(type)
     if (test == "welches"){
-    	if ( fdr == "lfdr" ) called <- x$criteria$we.lfdr <= cutoff
-   		if ( fdr == "qval" ) called <- x$criteria$we.qval <= cutoff
-   	}
+    	if (fdr == "BH") {  called <- x$criteria$we.BH <= cutoff }
+    	if (fdr == "lfdr") { called <- x$criteria$we.lfdr <= cutoff }
+     	signif <- x$criteria$we.pval <= 0.05
+  	}
 
-    if (test == "wilcox"){
-    	if ( fdr == "lfdr" ) called <- x$criteria$wi.lfdr <= cutoff
-   		if ( fdr == "qval" ) called <- x$criteria$wi.qval <= cutoff
-   	}
-    signif <- x$criteria$sig.p
+    if (test == "wilcoxon"){
+     	if (fdr == "BH") {  called <- x$criteria$wi.BH <= cutoff }
+    	if (fdr == "lfdr") { called <- x$criteria$wi.lfdr <= cutoff }
+      	signif <- x$criteria$wi.pval <= 0.05
+  	}
 
     if ( is.null(col) ) col <- blues9[9]
 
     if ( type == "MA" ) {
 
-        if ( is.null(xlab) ) xlab <- expression( "Median" ~~ Log[2] ~~ "Combined- Level" )
-        if ( is.null(ylab) ) ylab <- expression( "Median" ~~ Log[2] ~~ "btw-Condition diff" )
+        if ( is.null(xlab) ) xlab <- expression( "Median" ~~ Log[2] ~~ "rel-abundance" )
+        if ( is.null(ylab) ) ylab <- expression( "Median" ~~ Log[2] ~~ "btw-cond diff" )
 
         if ( is.null(xlim) ) xlim <- range( x$rab$all[      ,"50%"] )
         if ( is.null(ylim) ) ylim <- range( x$diff$btw [      ,"50%"] )
@@ -451,13 +447,14 @@ plot.aldex <- function( x, ..., type=c("MW","MA","hist"),
 
     } else if ( type == "MW" ) {
 
-        if ( is.null(xlab) ) xlab <- expression( "Median" ~~ Log[2] ~~ "win-Condition diff" )
-        if ( is.null(ylab) ) ylab <- expression( "Median" ~~ Log[2] ~~ "btw-Condition diff" )
+        if ( is.null(xlab) ) xlab <- expression( "Median" ~~ Log[2] ~~ "win-cond diff" )
+        if ( is.null(ylab) ) ylab <- expression( "Median" ~~ Log[2] ~~ "btw-cond diff" )
 
         if ( is.null(xlim) ) xlim <- range( x$diff$win [      ,"50%"] )
         if ( is.null(ylim) ) ylim <- range( x$diff$btw[      ,"50%"] )
 
-        plot( x$diff$win[      ,"50%"], x$diff$btw[      ,"50%"], xlim=xlim, ylim=ylim, col=col, pch=pch, xlab=xlab, ylab=ylab, main=paste(c(test, fdr), sep=", ") )
+        plot( x$diff$win[      ,"50%"], x$diff$btw[      ,"50%"], xlim=xlim, ylim=ylim, col=col, pch=pch, xlab=xlab, ylab=ylab, main=test )
+        points(        x$diff$win[ ,"50%"][x$rab$all[,"50%"] <= rare], x$diff$btw[ ,"50%"][x$rab$all[,"50%"] <= rare], pch=rare.pch, col=rare.col, cex=rare.cex )
         points(        x$diff$win[signif,"50%"], x$diff$btw[signif,"50%"], pch=signif.pch, cex=signif.cex, col=signif.col )
         points(        x$diff$win[called,"50%"], x$diff$btw[called,"50%"], pch=called.pch, cex=called.cex, col=called.col )
         abline( a=0, b= 1, col=thres.line.col, lwd=thres.lwd, lty=2 )
