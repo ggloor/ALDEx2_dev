@@ -26,22 +26,43 @@ Aitchison J (2003).
 \bibAnnoteFile{aitchisonconcise}
 
 \bibitem{fernandes:2013}
-Fernandes AD, Macklaim JM, Linn T, Reid G, Gloor GB (2013) Anova-like
-  differential expression (aldex) analysis for mixed population rna-seq.
+Fernandes AD, Macklaim JM, Linn T, Reid G, Gloor GB (2013) {ANOVA}-like
+  differential expression ({ALDEx}) analysis for mixed population {RNA}-seq.
 \newblock PLoS ONE 8: e67019.
 \bibAnnoteFile{fernandes:2013}
 
+\bibitem{fernandes:2014}
+Fernandes AD, Reid J, Macklaim JM, McMurrough TA, Edgel DR, et~al. (2014)
+  Unifying the analysis of high-throughput sequencing datasets: characterizing
+  rna-seq, 16s rrna gene sequencing and selective growth experiments by
+  compositional data analysis.
+\newblock Microbiome May 25.
+\bibAnnoteFile{fernandes:2014}
+
 \bibitem{Bottomly:2011}
 Bottomly D, Walter NAR, Hunter JE, Darakjian P, Kawane S, et~al. (2011)
-  Evaluating gene expression in c57bl/6j and dba/2j mouse striatum using
-  rna-seq and microarrays.
+  Evaluating gene expression in {C57BL/6J} and {DBA/2J} mouse striatum using
+  {RNA-seq} and microarrays.
 \newblock PLoS One 6: e17820.
 \bibAnnoteFile{Bottomly:2011}
 
 \bibitem{Soneson:2013}
 Soneson C, Delorenzi M (2013) A comparison of methods for differential
-  expression analysis of rna-seq data.
+  expression analysis of {RNA-seq} data.
 \newblock BMC Bioinformatics 14: 91.
 \bibAnnoteFile{Soneson:2013}
+
+\bibitem{benjamini:1995}
+Benjamini Y, Hochberg Y (1995) Controlling the false discovery rate: a
+  practical and powerful approach to multiple testing.
+\newblock Journal of the Royal Statistical Society Series B (Methodological) :
+  289--300.
+\bibAnnoteFile{benjamini:1995}
+
+\bibitem{Nakagawa:2007}
+Nakagawa S, Cuthill IC (2007) Effect size, confidence interval and statistical
+  significance: a practical guide for biologists.
+\newblock Biol Rev Camb Philos Soc 82: 591-605.
+\bibAnnoteFile{Nakagawa:2007}
 
 \end{thebibliography}

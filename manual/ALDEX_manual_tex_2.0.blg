@@ -4,47 +4,47 @@ The top-level auxiliary file: ALDEX_manual_tex_2.0.aux
 The style file: plos2009.bst
 Database file #1: bibdesk_refs.bib
 Warning--entry type for "aitchisonconcise" isn't style-file defined
---line 12 of file bibdesk_refs.bib
+--line 565 of file bibdesk_refs.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-You've used 5 entries,
+You've used 8 entries,
             2441 wiz_defined-function locations,
-            572 strings with 5450 characters,
-and the built_in function-call counts, 3265 in all, are:
-= -- 277
-> -- 60
+            596 strings with 6255 characters,
+and the built_in function-call counts, 6108 in all, are:
+= -- 550
+> -- 100
 < -- 0
-+ -- 30
-- -- 15
-* -- 255
-:= -- 392
-add.period$ -- 11
-call.type$ -- 5
-change.case$ -- 4
++ -- 50
+- -- 25
+* -- 511
+:= -- 733
+add.period$ -- 17
+call.type$ -- 8
+change.case$ -- 7
 chr.to.int$ -- 0
-cite$ -- 10
-duplicate$ -- 330
-empty$ -- 348
-format.name$ -- 18
-if$ -- 715
+cite$ -- 16
+duplicate$ -- 620
+empty$ -- 645
+format.name$ -- 31
+if$ -- 1344
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 50
-newline$ -- 41
-num.names$ -- 5
-pop$ -- 73
+int.to.str$ -- 8
+missing$ -- 79
+newline$ -- 56
+num.names$ -- 8
+pop$ -- 105
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 38
+skip$ -- 58
 stack$ -- 0
-substring$ -- 390
-swap$ -- 92
+substring$ -- 835
+swap$ -- 148
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 26
-width$ -- 6
-write$ -- 68
+while$ -- 44
+width$ -- 9
+write$ -- 100
 (There was 1 warning)
