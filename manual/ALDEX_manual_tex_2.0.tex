@@ -98,10 +98,17 @@ version & dataset & DMC  &  time\\\hline
 
 \section{Modelling the data as proportions rather than counts}
 For high-throughput sequencing experiments, including RNA-seq, individual sequence reads are assigned to genes or genomic features and the typical output is a table of counts per feature. Reads assigned to these features have several sources of variation: technical variation, biological variation within a condition, biological variation between conditions and unexplained variation. The consensus view in the literature is that the underlying variation is best explained by the modelling the pooled variation of each feature with a given condition using negative binomial distribution. 
-
+\begin{wrapfigure}{r}{0.3\textwidth}\vspace{-1cm}
+\vspace{0cm}
+\begin{center}
+\includegraphics[width=0.35\textwidth]{/Users/ggloor/git/ALDEx2/manual/DirvsBH.pdf}
+\caption{The effect of modelling the data as proportions using Monte-Carlo instances drawn from a Dirichlet distribution and clr transformation on corrected p values. The typical experiment has many replicates and few samples, thus the technical variation in the data is modelled poorly. Shown here are the distribution of Benjamini-Hochberg corrected p values (q value) for 128 Monte-Carlo instances. Only the last one is reported as significant by ALDEx2 (expected q value indicated above the bars), yet some inferred technical replicates of each feature would give significant q values. Taking the expected value of the distribution rather than a single point estimate ensures that only features that exhibit significance consistently are identified as significantly different.  }
+\label{dirvsbh}
+\end{center}\vspace{-.5cm}
+\end{wrapfigure}
 We take a different approach with ALDEx and ALDEx2. First, we do not assume the technical variation of the features in a given sample share any underlying distribution. Second, we model the reads as proportions  of the data available rather than as counts. The proportional nature of the data is a result of the large but finite number of reads available from a next-generation sequencing run. See Fernandes et al.\cite{fernandes:2013} for a discussion of the advantages of modelling the data in this way. 
 
-In brief, we we use Baysian techniques to infer the underlying technical variation in the read count proportions in a way that preserves the proportional nature of the data. This is done by sampling from a Dirichlet distribution, and results in a transformation of the observed read counts into a distribution of read counts. These distributions are centre log-ratio transformed following the advice of Aitchison\cite{Aitchison:1986} for dealing with proportional data. This has three effects. First, the abundance values for each sample are centred on their geometric mean abundance levels. Second, the data now expose the same relationships regardless of how the input data is altered. Third, the values become largely independent and can be dealt with as statistically independent features when there are large numbers of features.  
+In brief, we we use Baysian techniques to infer the underlying technical variation in the read count proportions in a way that preserves the proportional nature of the data. This is done by sampling from a Dirichlet distribution, and results in a transformation of the observed read counts into a distribution of read counts. These distributions are centre log-ratio transformed following the advice of Aitchison\cite{Aitchison:1986} for dealing with proportional data. This has three effects. First, the abundance values for each sample are centred on their geometric mean abundance levels. Second, the data now expose the same relationships regardless of how the input data is altered by subsetting. Third, the values become largely independent and can be dealt with as statistically independent features when there are large numbers of features.  
 
 \section{Case study a growth selection type experiment:}{\label{example}} This section contains an analysis of a dataset collected where a single gene  library was made that contained 1600 sequence variants at 4 codons in the sequence. These variants were cloned into an expression vector at equimolar amounts. The wild-type version of the gene conferred resistance to a topoisomerase toxin. Seven independent growths of the gene library were conducted under selective and non-selective conditions and the resulting abundances of each variant was read out by sequencing a pooled, barcoded library on an Illumina MiSeq (McMurrough et al., submitted). The data table is included as selex\_table.txt in the package. In this data table,there are 1600 features and 14 samples. The analysis takes approximately 2 minutes and memory usage tops out at less than 1Gb of RAM on a mobile i7 class processor.  The commands used are presented below:\\\\
 \\\\
@@ -246,7 +253,16 @@ This is the dataset that you want to explore. ALDEx2 uses the clr transformation
 \end{itemize}
 }
 
-\noindent\# It is important to note that the values given in the table are all Expected values of Dirichlet Monte-Carlo instances. Thus, the summary statistics cannot be derived from the abundance statistics in the table. It is also important to remember that the rab values are the log2-based abundance values relative to the geometric mean abundance. Therefore, if feature A has a value of 6 and feature B has a value of 7 then feature B is twice as abundant as feature A relative to the geometric mean abundance.\\  
+\begin{wrapfigure}{r}{0.6\textwidth}\vspace{-1cm}
+\vspace{1cm}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{/Users/ggloor/git/ALDEx2/manual/bottomly.pdf}
+\caption{Differential expression in the Bottomly dataset using Welch's t-test and  BH false discovery rate set at 0.05.  The Welch's test with fdr identified 414 differentially expressed genes, Wilcoxon with fdr 465, and the overlap between the methods was 402.}
+\label{bottomly1}
+\end{center}\vspace{0cm}
+\end{wrapfigure}
+\noindent\# It is important to note that the values given in the table are all Expected values of Dirichlet Monte-Carlo instances. Thus, the summary statistics cannot be derived from the abundance statistics in the table. It is also important to remember that the rab values are the log2-based abundance values relative to the geometric mean abundance. Therefore, if feature A has a value of 6 and feature B has a value of 7 then feature B is twice as abundant as feature A relative to the geometric mean abundance.
+ 
 
 %{\scriptsize
 %%\caption{default}
@@ -261,46 +277,46 @@ This is the dataset that you want to explore. ALDEx2 uses the clr transformation
 
 \noindent\# This makes a plot of the data, either as MA, MW, or hist plots (see Figure \ref{bottomly1}):
 
-\noindent\texttt{plot.aldex(x, type="MW", test="Welch's", cutoff=0.05)}\\
+\begin{verbatim}plot.aldex(x, type="MW", 
+  test="Welch's", cutoff=0.05)
+ \end{verbatim}
 
 Generate the plot:
 %pdf("/Users/ggloor/git/ALDEx2/manual/bottomly.pdf", height=4, width=8)
 \begin{verbatim}
-pdf("bottomly.pdf", height=4, width=8)
-par(mfrow=c(1,2), mar=c(4,4,2,2))
+pdf("bottomly.pdf", 
+  height=4, width=8)
+par(mfrow=c(1,2), 
+  mar=c(4,4,2,2))
 plot.aldex(xb, test="welches")
 plot.aldex(xb, test="wilcoxon")
 dev.off()
 \end{verbatim}
-\begin{wrapfigure}{r}{0.6\textwidth}\vspace{-1cm}
-\vspace{-.5cm}
-\begin{center}
-\includegraphics[width=0.6\textwidth]{/Users/ggloor/git/ALDEx2/manual/bottomly.pdf}
-\caption{Differential expression in the Bottomly dataset using Welch's t-test and  BH false discovery rate set at 0.05.  The Welch's test with fdr identified 414 differentially expressed genes, Wilcoxon with fdr 465, and the overlap between the methods was 402.}
-\label{bottomly1}
-\end{center}\vspace{-.5cm}
-\end{wrapfigure}
+
 The MW plot is illustrated in Figure \ref{bottomly1}. Blue are features not called significantly different, cyan have a p value less than 0.05, red is a false discovery rate less than 0.05. The Benjamini-Hochberg method is used for fdr correction\cite{benjamini:1995}.
 
 %\subsubsection*{Choosing a false discovery method:} ALDEx2 uses either fdrtool to calculate both the tail area-based q value and the density-based local false discovery rate (lfdr). Both are calculated for convenience at the same time as the Dirichlet Monte-Carlo sampling approach can be somewhat time consuming. In our experience either method may be more appropriate. We observe that when the data is not very dispersed or when sample sizes are small, that the tail area method (qvalue score) appears to be more powerful; however when the data is dispersed or for large numbers of samples, as happens in meta-transcriptomic analyses, then the lfdr method is likely to be more appropriate. %Fortunately, the use of one method over the other can be chosen by examining the histogram of p values calculated by the Welch's or Wilcoxon tests. If the histogram is approximately random-uniformly distributed, then the lfdr method is more appropriate, if the histogram is not randomly-uniform distributed then the tail area-based method (qvalue) is more powerful. The plot.aldex function provides a simple histogram plot of both the Welch's and Wilcoxon p values to aid this decision.
-
-We recommend that the MW plots  be inspected by the user to determine appropriate false discovery rate methods and cutoff values. The diagonal lines represent the region of the graph where the difference between the conditions is equal to the largest within-condition difference\cite{fernandes:2013}. Empirical observation suggests the following recommendations. When the number of samples and the number of features are both large, we find that either the Welch's or Wilcoxon test coupled with the local false discovery rate give nearly identical results. 
-
-\subsection*{Effect size:} There is a very strong association between the effect size calculated as in Fernandes et al.\cite{fernandes:2013} and the Expected p value and the associated corrected p value. The effect size is determined by dividing the random vector of between-group differences by both random vectors of within-group differences, taking the larger of the two results, and taking the Expected value of the final vector. Effect size is thus a measure of the mean ratio of the difference between conditions and the maximum difference within conditions. When the sample size is small (say less than 4 in each condition)  the estimation of p values by either statistical test is less robust, it may be more appropriate to use an effect size cutoff of 1.5-2 and an overlap cutoff of 0.01 to identify differential features of interest\cite{fernandes:2013}. Conversely, when the number of samples is very large, the adjusted p value cutoffs will identify a large number of differential features because of the well-know relationship between sample size and power. However, it is likely that with extremely large sample sizes that statistical significance will over-estimate biological relevance when the effect size is small and the user is cautioned to use prudent effect size cutoffs\cite{Nakagawa:2007}.
-\begin{wrapfigure}{R}[-20mm]{0.4\textwidth}
-\vspace{2cm}
+\begin{wrapfigure}{R}[0mm]{0.4\textwidth}
+\vspace{0cm}
 \begin{center}
 \includegraphics[width=0.4\textwidth]{/Users/ggloor/git/ALDEx2/manual/effect.pdf}
 \caption{Plot showing correlation between effect size and p values. Black and red, show the plot for the Bottomly dataset, with black showing BH values $>0.05$ and red showing BH values $<= 0.05$. The blue dots show the plot for the selex dataset, with no distinction.}
 \label{bottomly1}
-\end{center}\vspace{-.5cm}
+\end{center}\vspace{0cm}
 \end{wrapfigure}
+
+We recommend that the MW plots  be inspected by the user to determine appropriate false discovery rate methods and cutoff values. The diagonal lines represent the region of the graph where the difference between the conditions is equal to the largest within-condition difference\cite{fernandes:2013}. Empirical observation suggests the following recommendations. When the number of samples and the number of features are both large, we find that either the Welch's or Wilcoxon test coupled with the local false discovery rate give nearly identical results. 
+
+\section*{Effect size:} There is a very strong association between the effect size calculated as in Fernandes et al.\cite{fernandes:2013} and the Expected p value and the associated corrected p value. The effect size is determined by dividing the random vector of between-group differences by both random vectors of within-group differences, taking the larger of the two results, and taking the Expected value of the final vector. Effect size is thus a measure of the mean ratio of the difference between conditions and the maximum difference within conditions. When the sample size is small (say less than 4 in each condition)  the estimation of p values by either statistical test is less robust, it may be more appropriate to use an effect size cutoff of 1.5-2 and an overlap cutoff of 0.01 to identify differential features of interest\cite{fernandes:2013}. Conversely, when the number of samples is very large, the adjusted p value cutoffs will identify a large number of differential features because of the well-know relationship between sample size and power. However, it is likely that with extremely large sample sizes that statistical significance will over-estimate biological relevance when the effect size is small and the user is cautioned to use prudent effect size cutoffs\cite{Nakagawa:2007}.\
 %pdf("/Users/ggloor/git/ALDEx2/manual/effect.pdf", height=4, width=4)
 \begin{verbatim}pdf("effect.pdf", height=4, width=4)
 par(mfrow=c(1,1), mar=c(4,4,2,2))
-plot(yb$effect, log10(yb$criteria.we.BH),pch=19, cex=0.3, xlab="Effect size", ylab="log10 BH adjusted or raw p value")
-points(yb$effect[yb$criteria.we.BH <0.05], log10(yb$criteria.we.BH[yb$criteria.we.BH <0.05]),pch=19, cex=0.3, col="red")
-points(yb$effect, log10(yb$criteria.we.pval),pch=19, cex=0.3,col="blue", xlab="Effect size", ylab="log10 p value")
+plot(yb$effect, log10(yb$criteria.we.BH),pch=19, 
+  cex=0.3, xlab="Effect size", ylab="log10 BH adjusted or raw p value")
+points(yb$effect[yb$criteria.we.BH <0.05], 
+  log10(yb$criteria.we.BH[yb$criteria.we.BH <0.05]),pch=19, cex=0.3, col="red")
+points(yb$effect, log10(yb$criteria.we.pval), 
+  pch=19, cex=0.3,col="blue", xlab="Effect size", ylab="log10 p value")
 dev.off()
 \end{verbatim}
 
@@ -319,7 +335,7 @@ dev.off()
 %\label{bottomly}
 %\end{center}
 %\end{figure}
-
+\newpage
 \bibliography{bibdesk_refs}
 \bibliographystyle{plos2009}
 

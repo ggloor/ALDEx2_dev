@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  2 APR 2014 13:54
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  3 APR 2014 14:32
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -324,120 +324,185 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--38
  []
 
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 106--109
+[2] </Users/ggloor/git/ALDEx2/manual/DirvsBH.pdf, id=17, 289.08pt x 578.16pt>
+File: /Users/ggloor/git/ALDEx2/manual/DirvsBH.pdf Graphic file (type pdf)
+
+<use /Users/ggloor/git/ALDEx2/manual/DirvsBH.pdf>
+Package pdftex.def Info: /Users/ggloor/git/ALDEx2/manual/DirvsBH.pdf used on in
+put line 104.
+(pdftex.def)             Requested size: 164.41711pt x 328.83122pt.
+
+Overfull \hbox (23.48918pt too wide) in paragraph at lines 104--105
+ [] 
+ []
+
+
+Underfull \hbox (badness 5939) in paragraph at lines 105--105
+[]\OT1/cmr/bx/n/10 Figure 1: |\OT1/cmr/m/n/10 The ef-fect of
+ []
+
+
+Underfull \hbox (badness 5274) in paragraph at lines 105--105
+\OT1/cmr/m/n/10 mod-elling the data as pro-
+ []
+
+
+Underfull \hbox (badness 1394) in paragraph at lines 105--105
+\OT1/cmr/m/n/10 Shown here are the dis-tri-bu-
+ []
+
+
+Underfull \hbox (badness 1005) in paragraph at lines 105--105
+\OT1/cmr/m/n/10 Monte-Carlo in-stances. Only
+ []
+
+
+Underfull \hbox (badness 1082) in paragraph at lines 105--105
+\OT1/cmr/m/n/10 tures that ex-hibit sig-nif-i-cance
+ []
+
+[3]
+Underfull \hbox (badness 2837) in paragraph at lines 113--116
+[]\OT1/cmr/m/n/10.95 This sec-tion con-tains an anal-y-sis of a dataset col-lec
+ted
+ []
+
+
+Underfull \hbox (badness 1609) in paragraph at lines 113--116
+\OT1/cmr/m/n/10.95 where a sin-gle gene li-brary was made that con-tained 1600
+ []
+
+
+Underfull \hbox (badness 4279) in paragraph at lines 113--116
+\OT1/cmr/m/n/10.95 se-quence vari-ants at 4 codons in the se-quence. These
+ []
+
+
+Underfull \hbox (badness 1303) in paragraph at lines 113--116
+\OT1/cmr/m/n/10.95 vari-ants were cloned into an ex-pres-sion vec-tor at equimo
+-lar
+ []
+
+
+Underfull \hbox (badness 4505) in paragraph at lines 113--116
+\OT1/cmr/m/n/10.95 ant was read out by se-quenc-ing a pooled, bar-coded li-
+ []
+
+
+Underfull \hbox (badness 2343) in paragraph at lines 113--116
+\OT1/cmr/m/n/10.95 The data ta-ble is in-cluded as se-lex[]table.txt in the pac
+k-
+ []
+
+
+Underfull \hbox (badness 1478) in paragraph at lines 113--116
+\OT1/cmr/m/n/10.95 i7 class pro-ces-sor. The com-mands used are pre-sented be-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--116
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--109
+Underfull \hbox (badness 10000) in paragraph at lines 113--116
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--109
+Underfull \hbox (badness 10000) in paragraph at lines 113--116
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--109
+Underfull \hbox (badness 10000) in paragraph at lines 113--116
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--111
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
 
  []
 
-[4] </Users/ggloor/git/ALDEx2/manual/selex_mw.pdf, id=24, 578.16pt x 289.08pt>
+[4 </Users/ggloor/git/ALDEx2/manual/DirvsBH.pdf>]
+</Users/ggloor/git/ALDEx2/manual/selex_mw.pdf, id=32, 578.16pt x 289.08pt>
 File: /Users/ggloor/git/ALDEx2/manual/selex_mw.pdf Graphic file (type pdf)
 
 <use /Users/ggloor/git/ALDEx2/manual/selex_mw.pdf>
 Package pdftex.def Info: /Users/ggloor/git/ALDEx2/manual/selex_mw.pdf used on i
-nput line 134.
+nput line 141.
 (pdftex.def)             Requested size: 433.62pt x 216.80946pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 144--145
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
-
- []
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 151--152
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--155
+[5 </Users/ggloor/git/ALDEx2/manual/selex_mw.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 155--156
 
  []
 
-[5 </Users/ggloor/git/ALDEx2/manual/selex_mw.pdf>]
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 175.
 
-Overfull \hbox (38.10408pt too wide) in paragraph at lines 175--175
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+
+ []
+
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 182.
+
+Overfull \hbox (38.10408pt too wide) in paragraph at lines 182--182
 []\OT1/cmtt/m/n/10.95 rab.all.q50 - median relative abundance of the mixture di
 stribution of all samples 
  []
 
 
-Overfull \hbox (9.36064pt too wide) in paragraph at lines 175--175
+Overfull \hbox (9.36064pt too wide) in paragraph at lines 182--182
 []\OT1/cmtt/m/n/10.95 rab.win.N.q50 - median value of the mixture distribution 
 samples in condition
  []
 
 
-Overfull \hbox (9.36064pt too wide) in paragraph at lines 175--175
+Overfull \hbox (9.36064pt too wide) in paragraph at lines 182--182
 []\OT1/cmtt/m/n/10.95 rab.win.B.q50 - median value of the mixture distribution 
 samples in condition
  []
 
 
-Overfull \hbox (15.10933pt too wide) in paragraph at lines 175--175
+Overfull \hbox (15.10933pt too wide) in paragraph at lines 182--182
 []\OT1/cmtt/m/n/10.95 effect.q50 - effect size, how distinct the between differ
 ence is as a function
  []
 
 
-Overfull \hbox (20.85802pt too wide) in paragraph at lines 175--175
+Overfull \hbox (20.85802pt too wide) in paragraph at lines 182--182
 []\OT1/cmtt/m/n/10.95 overlap - the fraction of the effect size distribution th
 at overlaps 0. If the
  []
 
 
-Overfull \hbox (66.84752pt too wide) in paragraph at lines 175--175
+Overfull \hbox (66.84752pt too wide) in paragraph at lines 182--182
 \OT1/cmtt/m/n/10.95 effect size is 2 and the overlap is less than 1% this is eq
 uivalent to the significance
  []
 
 
-Overfull \hbox (9.36064pt too wide) in paragraph at lines 175--175
+Overfull \hbox (9.36064pt too wide) in paragraph at lines 182--182
 \OT1/cmtt/m/n/10.95 test used by ALDEx version 1. This measure is not expected 
 to be reliable if
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
-
- []
-
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
 
  []
 
@@ -447,161 +512,110 @@ Underfull \hbox (badness 10000) in paragraph at lines 207--208
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--221
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--224
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 226--227
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
 
  []
 
 
-Overfull \hbox (38.10408pt too wide) in paragraph at lines 247--247
+Underfull \hbox (badness 10000) in paragraph at lines 230--231
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--234
+
+ []
+
+[7]
+Overfull \hbox (38.10408pt too wide) in paragraph at lines 254--254
 []\OT1/cmtt/m/n/10.95 rab.all.q50 - median relative abundance of the mixture di
 stribution of all samples 
  []
 
 
-Overfull \hbox (9.36064pt too wide) in paragraph at lines 247--247
+Overfull \hbox (9.36064pt too wide) in paragraph at lines 254--254
 []\OT1/cmtt/m/n/10.95 rab.win.N.q50 - median value of the mixture distribution 
 samples in condition
  []
 
 
-Overfull \hbox (9.36064pt too wide) in paragraph at lines 247--247
+Overfull \hbox (9.36064pt too wide) in paragraph at lines 254--254
 []\OT1/cmtt/m/n/10.95 rab.win.B.q50 - median value of the mixture distribution 
 samples in condition
  []
 
 
-Overfull \hbox (15.10933pt too wide) in paragraph at lines 247--247
+Overfull \hbox (15.10933pt too wide) in paragraph at lines 254--254
 []\OT1/cmtt/m/n/10.95 effect.q50 - effect size, how distinct the between differ
 ence is as a function
  []
 
-[7]
-Overfull \hbox (20.85802pt too wide) in paragraph at lines 247--247
+
+Overfull \hbox (20.85802pt too wide) in paragraph at lines 254--254
 []\OT1/cmtt/m/n/10.95 overlap - the fraction of the effect size distribution th
 at overlaps 0. If the
  []
 
 
-Overfull \hbox (66.84752pt too wide) in paragraph at lines 247--247
+Overfull \hbox (66.84752pt too wide) in paragraph at lines 254--254
 \OT1/cmtt/m/n/10.95 effect size is 2 and the overlap is less than 1% this is eq
 uivalent to the significance
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 264--265
-
- []
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 275.
-
-</Users/ggloor/git/ALDEx2/manual/bottomly.pdf, id=47, 578.16pt x 289.08pt>
+</Users/ggloor/git/ALDEx2/manual/bottomly.pdf, id=55, 578.16pt x 289.08pt>
 File: /Users/ggloor/git/ALDEx2/manual/bottomly.pdf Graphic file (type pdf)
 
 <use /Users/ggloor/git/ALDEx2/manual/bottomly.pdf>
 Package pdftex.def Info: /Users/ggloor/git/ALDEx2/manual/bottomly.pdf used on i
-nput line 278.
+nput line 259.
 (pdftex.def)             Requested size: 281.85587pt x 140.92703pt.
-
-
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 28
-3.
-
-</Users/ggloor/git/ALDEx2/manual/effect.pdf, id=48, 289.08pt x 289.08pt>
+ [8 </Users/ggloor/git/ALDEx2/manual/bottomly.pdf>]
+</Users/ggloor/git/ALDEx2/manual/effect.pdf, id=71, 289.08pt x 289.08pt>
 File: /Users/ggloor/git/ALDEx2/manual/effect.pdf Graphic file (type pdf)
 
 <use /Users/ggloor/git/ALDEx2/manual/effect.pdf>
 Package pdftex.def Info: /Users/ggloor/git/ALDEx2/manual/effect.pdf used on inp
-ut line 293.
+ut line 302.
 (pdftex.def)             Requested size: 187.89914pt x 187.89977pt.
- [8 </Users/ggloor/git/ALDEx2/manual/bottomly.pdf>]
-Overfull \hbox (208.59013pt too wide) in paragraph at lines 305--305
-[]\OT1/cmtt/m/n/10.95 plot(yb$effect, log10(yb$criteria.we.BH),pch=19, cex=0.3,
- xlab="Effect size", ylab="log10 BH adjusted or raw p value")[] 
- []
-
-
-Overfull \hbox (220.08751pt too wide) in paragraph at lines 305--305
-[]\OT1/cmtt/m/n/10.95 points(yb$effect[yb$criteria.we.BH <0.05], log10(yb$crite
-ria.we.BH[yb$criteria.we.BH <0.05]),pch=19, cex=0.3, col="red")[] 
- []
-
-
-Overfull \hbox (185.59538pt too wide) in paragraph at lines 305--305
-[]\OT1/cmtt/m/n/10.95 points(yb$effect, log10(yb$criteria.we.pval),pch=19, cex=
-0.3,col="blue", xlab="Effect size", ylab="log10 p value")[] 
- []
-
-(./ALDEX_manual_tex_2.0.bbl
+ [9 </Users/ggloor/git/ALDEx2/manual/effect.pdf>] (./ALDEX_manual_tex_2.0.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 22--27
-[]\OT1/cmr/m/n/9 Aitchison J (2003). A
+[]\OT1/cmr/m/n/9 Aitchison J (2003). A con-cise guide to com-po-si-tional data 
+anal-y-sis. URL
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 22--27
-\OT1/cmr/m/n/9 con-cise guide to com-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 22--27
-\OT1/cmr/m/n/9 po-si-tional data anal-
- []
-
-
-Overfull \hbox (250.6039pt too wide) in paragraph at lines 22--27
-\OT1/cmr/m/n/9 y-sis. URL \OT1/cmtt/m/n/9 http://ima.udg.edu/Activitats/CoDaWor
-k05/A[]concise[]guide[]to[]compositional[]data[]analysis.pdf\OT1/cmr/m/n/9 .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 22--27
-
- []
-
-
-Underfull \hbox (badness 1173) in paragraph at lines 29--33
-[]\OT1/cmr/m/n/9 Fernandes AD, Mack-laim JM, Linn T, Reid G,
- []
-
-) [9 </Users/ggloor/git/ALDEx2/manual/effect.pdf>] (./ALDEX_manual_tex_2.0.aux)
+) [10] (./ALDEX_manual_tex_2.0.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4488 strings out of 493315
- 64652 string characters out of 6137904
- 137497 words of memory out of 5000000
- 7713 multiletter control sequences out of 15000+600000
+ 4494 strings out of 493315
+ 64863 string characters out of 6137904
+ 138497 words of memory out of 5000000
+ 7718 multiletter control sequences out of 15000+600000
  13475 words of font info for 53 fonts, out of 8000000 for 9000
  1118 hyphenation exceptions out of 8191
- 42i,8n,38p,1571b,411s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,8n,38p,1571b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
@@ -613,10 +627,10 @@ al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loca
 l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/t
 exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on ALDEX_manual_tex_2.0.pdf (9 pages, 657961 bytes).
+Output written on ALDEX_manual_tex_2.0.pdf (10 pages, 663696 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 90 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
