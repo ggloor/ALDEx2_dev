@@ -32,18 +32,19 @@
 #  INVOCATION and OUTPUT
 #
 #  if input format A - one annotation column (i.e., length is column 2)
-#  R CMD BATCH '--args filename 3' SumByAitchisonTransform.r log.txt 
+#  R CMD BATCH '--args in_filename out_filename 3' SumByAitchisonTransform.r log.txt 
 #
 #  if input format B - two annotation columns (i.e., length is column 3)
-#  R CMD BATCH '--args filename 4' SumByAitchisonTransform.r log.txt
+#  R CMD BATCH '--args in_filename out_filename 4' SumByAitchisonTransform.r log.txt
 #
-#  OUTPUT is to a file called summedTable.txt
+#  OUTPUT is to a user-defined file
 #############
 
 args <- commandArgs(trailingOnly = TRUE)
 
 inputFile <- as.character(args[1])
-firstsubjectindex <- as.numeric(args[2])
+outputFile <- as.character(args[2])
+firstsubjectindex <- as.numeric(args[3])
 
 # perform Aitchison transform on one subject (ie. set of counts from one sample)
 # Input is a vector of non-negative integer counts.
@@ -116,5 +117,5 @@ agg.round <- round(agg[ ,2:ncol(agg)])
 rownames(agg.round) <- agg[,1]
 
 #  print the sucker
-write.table(agg.round, file = "summedTable.ALDEx2.2.txt", append = FALSE, quote = FALSE, sep = "\t", col.names=NA)
+write.table(agg.round, file = outputFile, append = FALSE, quote = FALSE, sep = "\t", col.names=NA)
 
