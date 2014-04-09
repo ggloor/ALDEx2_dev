@@ -13,6 +13,13 @@
   \textsc{Annotation:}\ #2\end{quotation}}
 \providecommand{\eprint}[2][]{\url{#2}}
 
+\bibitem{Bottomly:2011}
+Bottomly D, Walter NAR, Hunter JE, Darakjian P, Kawane S, et~al. (2011)
+  Evaluating gene expression in {C57BL/6J} and {DBA/2J} mouse striatum using
+  {RNA-seq} and microarrays.
+\newblock PLoS One 6: e17820.
+\bibAnnoteFile{Bottomly:2011}
+
 \bibitem{Aitchison:1986}
 Aitchison J (1986) The Statistical Analysis of Compositional Data.
 \newblock Chapman \& Hall.
@@ -39,13 +46,6 @@ Fernandes AD, Reid J, Macklaim JM, McMurrough TA, Edgel DR, et~al. (2014)
 \newblock Microbiome May 25.
 \bibAnnoteFile{fernandes:2014}
 
-\bibitem{Bottomly:2011}
-Bottomly D, Walter NAR, Hunter JE, Darakjian P, Kawane S, et~al. (2011)
-  Evaluating gene expression in {C57BL/6J} and {DBA/2J} mouse striatum using
-  {RNA-seq} and microarrays.
-\newblock PLoS One 6: e17820.
-\bibAnnoteFile{Bottomly:2011}
-
 \bibitem{Soneson:2013}
 Soneson C, Delorenzi M (2013) A comparison of methods for differential
   expression analysis of {RNA-seq} data.
@@ -64,5 +64,12 @@ Nakagawa S, Cuthill IC (2007) Effect size, confidence interval and statistical
   significance: a practical guide for biologists.
 \newblock Biol Rev Camb Philos Soc 82: 591-605.
 \bibAnnoteFile{Nakagawa:2007}
+
+\bibitem{Macklaim:2013}
+Macklaim MJ, Fernandes DA, Di~Bella MJ, Hammond JA, Reid G, et~al. (2013)
+  Comparative meta-{RNA-seq} of the vaginal microbiota and differential
+  expression by lactobacillus iners in health and dysbiosis.
+\newblock Microbiome doi: 10.1186/2049-2618-1-12.
+\bibAnnoteFile{Macklaim:2013}
 
 \end{thebibliography}

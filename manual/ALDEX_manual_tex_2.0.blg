@@ -6,45 +6,45 @@ Database file #1: bibdesk_refs.bib
 Warning--entry type for "aitchisonconcise" isn't style-file defined
 --line 565 of file bibdesk_refs.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-You've used 8 entries,
+You've used 9 entries,
             2441 wiz_defined-function locations,
-            596 strings with 6255 characters,
-and the built_in function-call counts, 6108 in all, are:
-= -- 550
-> -- 100
+            601 strings with 6556 characters,
+and the built_in function-call counts, 7101 in all, are:
+= -- 640
+> -- 124
 < -- 0
-+ -- 50
-- -- 25
-* -- 511
-:= -- 733
-add.period$ -- 17
-call.type$ -- 8
-change.case$ -- 7
++ -- 62
+- -- 31
+* -- 597
+:= -- 855
+add.period$ -- 19
+call.type$ -- 9
+change.case$ -- 8
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 620
-empty$ -- 645
-format.name$ -- 31
-if$ -- 1344
+cite$ -- 18
+duplicate$ -- 722
+empty$ -- 744
+format.name$ -- 38
+if$ -- 1562
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 79
-newline$ -- 56
-num.names$ -- 8
-pop$ -- 105
+int.to.str$ -- 9
+missing$ -- 91
+newline$ -- 61
+num.names$ -- 9
+pop$ -- 117
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 58
+skip$ -- 70
 stack$ -- 0
-substring$ -- 835
-swap$ -- 148
+substring$ -- 971
+swap$ -- 170
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 44
-width$ -- 9
-write$ -- 100
+while$ -- 52
+width$ -- 10
+write$ -- 111
 (There was 1 warning)
