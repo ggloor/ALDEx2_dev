@@ -42,6 +42,7 @@ clr <- function( reads, mc.samples=128, verbose=FALSE) {
     is.multicore <- require(multicore)
 
 if (is.multicore == TRUE) print("multicore environment is is OK")   
+if (is.multicore == FALSE) print("running in serial, not multicore, mode")   
  
     #  remove all rows with reads less than the minimum set by minsum 
     minsum <- 0
