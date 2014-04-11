@@ -1,4 +1,6 @@
 # How to run the test functions
+# ALDExSMP.r from Matt Links. Included for reference on how to do 
+# multiprocessor aware coding in R. This is not used for the modular testing
 
 source("clr_test_function.r")
 source("ttest_test_function.r")
