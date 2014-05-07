@@ -1,0 +1,3 @@
+#import( multicore )
+export( aldex )
+exportPattern( "^aldex[.]*" )
