@@ -2,8 +2,9 @@ Package: ALDEx2m
 Type: Package
 Title: Analysis of differential abundance taking sample variation into account
 Version: 2.0.7.1
+Suggests: multicore
 Date: 2014-04-16
 Author: Greg Gloor, Andrew Fernandes, Arianne Albert, Matt Links
 Maintainer: Greg Gloor <ggloor@uwo.ca>
 Description: A differential abundance analysis for the comparison of two or more conditions. For example, single-organism and meta-RNA-seq high-throughput sequencing assays, or of selected and unselected values from in-vitro sequence selections. Uses a Dirichlet-multinomial model to infer abundance from counts, that has been optimized for three or more experimental replicates. Infers sampling variation and calculates the expected false discovery rate given the biological and sampling variation using the Wilcox rank test or Welches t-test (aldex.ttest) or the glm and Kruskal Wallis tests (aldex.glm). Reports both P and fdr values calculated by the Benjamini Hochberg correction. 
-License: License: AGPL (>= 3)
+License: file LICENSE

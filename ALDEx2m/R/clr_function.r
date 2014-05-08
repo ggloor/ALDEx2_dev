@@ -78,7 +78,7 @@ if (verbose == TRUE) print("data format is OK")
             function(col) {
                 q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
                 rownames(q) <- rn ; 
-                q }, mc.cores=multicore:::detectCores())
+                q }, mc.cores=getOption("cores"))
     }else{
         p <- lapply( reads , 
             function(col) { 
@@ -101,7 +101,7 @@ if (verbose == TRUE) print("dirichlet samples complete")
     if (is.multicore == TRUE){
         l2p <- mclapply( p, function(m) {
             apply( log2(m), 2, function(col) { col - mean(col) } )
-        },mc.cores=multicore:::detectCores())
+        },mc.cores=getOption("cores"))
         
     }else{
         l2p <- lapply( p, function(m) {

@@ -81,7 +81,7 @@ if (is.multicore == FALSE) print("running in serial, not multicore, mode")
     
     # p-valuess
     if (is.multicore == TRUE){
-        pps <- mclapply(x, drop1, test = "Chis", mc.cores=multicore:::detectCores())
+        pps <- mclapply(x, drop1, test = "Chis", mc.cores=getOption("cores") )
     } else {
         pps <- lapply(x, drop1, test = "Chis")
 	}

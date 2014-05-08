@@ -19,12 +19,12 @@ aldex.corr(clr, covar)
   
 }
 \details{
-    An explicit example for two conditions is shown in the `Examples' below.
+    An explicit example for two conditions is shown in the 'Examples' below.
 }
 \value{
     Outputs a dataframe with the following information:
     \item{pearson.ecor}{
-        a vector containing the expected Pearson’s Product moment value for each feature
+        a vector containing the expected Pearson's Product moment value for each feature
     }    
     \item{pearson.ep}{
         a vector containing the expected P value of the Pearson Product moment value for each feature    
@@ -33,13 +33,13 @@ aldex.corr(clr, covar)
         a vector containing the expected Benjamini-Hochberg corrected P value of the Pearson Product moment value for each feature    
     }
     \item{spearman.erho}{
-        a vector containing the expected Spearman’s rank correlation value for each feature
+        a vector containing the expected Spearman's rank correlation value for each feature
     }    
     \item{spearman.ep}{
-        a vector containing the expected P value of Spearman’s rank correlation value for each feature    
+        a vector containing the expected P value of Spearman's rank correlation value for each feature    
     }
     \item{spearman.eBH}{
-        a vector containing the expected Benjamini-Hochberg corrected P value of Spearman’s rank correlation value for each feature    
+        a vector containing the expected Benjamini-Hochberg corrected P value of Spearman's rank correlation value for each feature    
     }
 }
 \references{
