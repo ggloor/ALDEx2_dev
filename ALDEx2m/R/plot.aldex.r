@@ -8,7 +8,7 @@ plot.aldex <- function( x, ..., type=c("MW","MA"),
 ){
     type <- match.arg(type)
 
-	if (length(x$effect) == 0) stop ("The output from aldex.effect is not available")
+	if (length(x$effect) == 0) stop ("Please run aldex.effect before plotting")
 
     if (test == "welch"){
     	if (length(x$we.eBH) == 0) stop ("Welch's t test results not in dataset")
