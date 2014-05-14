@@ -1,5 +1,5 @@
-\name{plot.aldex}
-\alias{plot.aldex}
+\name{aldex.plot}
+\alias{aldex.plot}
 \title{
     Plot an \code{aldex} Object
 }
@@ -7,7 +7,7 @@
     Create `MW'- or `MA'-type plots from the given \code{aldex} object.
 }
 \usage{
-    \method{plot}{aldex}(  x, ..., type=c("MW","MA"),
+    \method{aldex}{plot}(  x, ..., type=c("MW","MA"),
     xlab=NULL, ylab=NULL, xlim=NULL, ylim=NULL,
     all.col=rgb(0,0,0,0.2), all.pch=19, all.cex=0.4,
     called.col=red, called.pch=20, called.cex=0.6,
@@ -26,10 +26,10 @@
         which type of plot is to be produced. MA is a Bland-Altman style plot; MW is a difference between to a variance within plot as described in the paper
     }
     \item{test}{
-        the method of calculating significance, one of 
-        welch = welch's t test
-        wilcox = wilcox rank test
-        glm = glm
+        the method of calculating significance, one of:
+        welch = welch's t test;
+        wilcox = wilcox rank test;
+        glm = glm;
         kruskal = Kruskal-Wallace test
     }
     \item{cutoff}{

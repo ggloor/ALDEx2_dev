@@ -1,4 +1,4 @@
-plot.aldex <- function( x, ..., type=c("MW","MA"),
+aldex.plot <- function( x, ..., type=c("MW","MA"),
     xlab=NULL, ylab=NULL, xlim=NULL, ylim=NULL,
     all.col=rgb(0,0,0,0.2), all.pch=19, all.cex=0.4,
     called.col="red", called.pch=20, called.cex=0.6,
