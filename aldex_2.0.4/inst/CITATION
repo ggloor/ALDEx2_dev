@@ -1,9 +1,0 @@
-bibentry(
-    bibtype = "Article",
-    title   = "*** ANOVA-Like Differential Gene Expression Analysis of Single-Organism and Meta-RNA-Seq",
-    author  = as.person("Fernandes, A. D. and Macklaim, J. M. and Linn, T.G and Reid, G. and Gloor, G. B."),
-    journal = "*** PLoS ONE, 2013, volume 8, issue 7, e67019",
-    isbn    = "*** 3-900051-07-0",
-    year    = "2013",
-    url     = "*** http://dx.doi.org/10.1371%2/journal.pone.0067019"
-)

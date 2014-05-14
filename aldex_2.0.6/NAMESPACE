@@ -1,6 +1,0 @@
-#import( fdrtool )
-#import( KernSmooth )
-
-export( aldex )
-exportPattern( "^aldex[.][[:alpha:]]([[:alnum:]]|_)*$" )
-exportPattern( "^[[:alpha:]]([[:alnum:]]|_)*[.]aldex$" )
