@@ -30,7 +30,7 @@ aldex.clr <- function( reads, mc.samples=128, verbose=FALSE) {
 
     # Fully validate and coerce the data into required formats
     # make sure that the multicore package is in scope and return if available 
-    is.multicore <- require(multicore)
+    is.multicore <- require(parallel)
 
 if (is.multicore == TRUE) print("multicore environment is is OK")   
 if (is.multicore == FALSE) print("running in serial, not multicore, mode")   
@@ -78,7 +78,7 @@ if (verbose == TRUE) print("data format is OK")
             function(col) {
                 q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
                 rownames(q) <- rn ; 
-                q }, mc.cores=getOption("cores"))
+                q }, mc.cores=getOption( "mc.cores", detectCores() ) )
     }else{
         p <- lapply( reads , 
             function(col) { 
@@ -101,7 +101,7 @@ if (verbose == TRUE) print("dirichlet samples complete")
     if (is.multicore == TRUE){
         l2p <- mclapply( p, function(m) {
             apply( log2(m), 2, function(col) { col - mean(col) } )
-        },mc.cores=getOption("cores"))
+        },mc.cores=getOption("mc.cores", detectCores() ))
         
     }else{
         l2p <- lapply( p, function(m) {

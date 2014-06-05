@@ -32,7 +32,7 @@
 
 aldex.glm <- function(clr, conditions){ 
     # make sure that the multicore package is in scope and return if available 
-    is.multicore <- require(multicore)
+    is.multicore <- require(parallel)
 
 if (is.multicore == TRUE) print("multicore environment is is OK")   
 if (is.multicore == FALSE) print("running in serial, not multicore, mode")   
@@ -81,7 +81,7 @@ if (is.multicore == FALSE) print("running in serial, not multicore, mode")
     
     # p-valuess
     if (is.multicore == TRUE){
-        pps <- mclapply(x, drop1, test = "Chis", mc.cores=getOption("cores") )
+        pps <- mclapply(x, drop1, test = "Chis", mc.cores=getOption("mc.cores", detectCores() ) )
     } else {
         pps <- lapply(x, drop1, test = "Chis")
 	}

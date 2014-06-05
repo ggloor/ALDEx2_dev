@@ -14,7 +14,7 @@
 #returns a dataframe of expected P and fdr statistics for each feature
 aldex.ttest <- function(clr, conditions, paired.test=FALSE) {
     
-    # get dimentions, names, etc from the input data
+    # get dimensions, names, etc from the input data
     smpl.ids <- names(clr)
     feature.number <- length(clr[[1]][,1])
     mc.instances <- length(clr[[1]][1,])

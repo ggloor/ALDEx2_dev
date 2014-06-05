@@ -6,7 +6,7 @@
 
 aldex.effect <- function(clr, conditions, verbose=TRUE, include.sample.summary=FALSE){
 
-    is.multicore <- require(multicore)
+    is.multicore <- require(parallel)
 
 if (is.multicore == TRUE) print("multicore environment is is OK")   
 if (is.multicore == FALSE) print("multicore not present operating in serial mode")   
@@ -58,7 +58,7 @@ if (verbose == TRUE) print("sanity check complete")
     }
  if (verbose == TRUE) print("rab.win  complete")
 
-	if (is.multicore == TRUE)  rab$spl <- mclapply( clr, function(m) { t(apply( m, 1, median )) }, mc.cores=getOption("cores") )
+	if (is.multicore == TRUE)  rab$spl <- mclapply( clr, function(m) { t(apply( m, 1, median )) }, mc.cores=getOption("mc.cores", detectCores() ) )
     if (is.multicore == FALSE) rab$spl <- lapply( clr, function(m) { t(apply( m, 1, median )) } )
 
 if (verbose == TRUE) print("rab of samples complete")
@@ -97,7 +97,7 @@ if (verbose == TRUE) print("within sample difference calculated")
     # get the minimum number of win spl comparisons
     ncol.wanted <- min( sapply( l2d$win, ncol ) )
 # apply multicore paradigm ML
-    if (is.multicore == TRUE) l2d$win  <- mclapply( l2d$win, function(arg) { arg[,1:ncol.wanted] },mc.cores=getOption("cores") )
+    if (is.multicore == TRUE) l2d$win  <- mclapply( l2d$win, function(arg) { arg[,1:ncol.wanted] },mc.cores=getOption("mc.cores", detectCores() ) )
     if (is.multicore == FALSE) l2d$win  <- lapply( l2d$win, function(arg) { arg[,1:ncol.wanted] } )
 
     # btw condition diff (signed)
