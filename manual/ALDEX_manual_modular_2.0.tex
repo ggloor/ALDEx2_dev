@@ -60,7 +60,7 @@ conds <- c(rep("NS", 7), rep("S", 7))
 # Single command approach
 # this is identical to ALDEx2 versions before 2.0.7
 # test: t = Welch's t + Wilcoxon, glm = glm + Kruskal-Wallace
-x <- aldex(selex, mc.samples=128, test="t", effect=TRUE, 
+x <- aldex(selex, conds, mc.samples=128, test="t", effect=TRUE, 
      include.sample.summary=FALSE, verbose=FALSE)
 # plot the data
 # types: MA, MW
@@ -189,6 +189,78 @@ abline(0,-1,lty=2)
 \end{center}
 \end{figure}
 
+\section{Using ALDEx2 for a 1 way ANOVA}
+ALDEx2 has a module for 1-way ANOVA using the Kruskal-Wallace and glm approaches. This module was contributed by Arianne Albert (UBC), and shows that access to the underlying clr-transformed data can be used to build an arbitrary analysis module. All that is required is to identify the analysis to be conducted, and then to collect the values of the statistical test for each Monte-Carlo instance and finally, to take the mean of those test statistics.
+
+As an example, we will use the OTU data table from Hsiao et. al `Microbiota modulate behavioral and physiological abnormalities associated with neurodevelopmental disorders'\cite{Hsiao:2013}. In this table the authors are interested in identifying which OTUs are different between a saline control, and the offspring of polyIC treated mouse dams where the offspring were either treated with \emph{Bacillus fragilis} or not treated with \emph{B. fragilis}. The hypothesis was that \emph{B. fragilus} treatment restored the microbiota composition to the control compositions. 
+
+
+
+\begin{verbatim}
+#download dataset from: 
+http://www.sciencedirect.com/science/MiamiMultiMediaURL/1-s2.0-
+S0092867413014736/1-s2.0-S0092867413014736-mmc2.zip/272196/FULL/
+S0092867413014736/00157c3f7ba58d2d8ff5379d9c2f3c8b/mmc2.zip
+
+d <- read.csv("cell7251mmc2/otu_table_S_P_P+Bf.csv", header=T, 
+ row.names=1, comment.char = "", skip=1)
+
+#prepare the data
+taxon <- d$taxonomy #save the taxonomy information
+d$taxonomy  <- NULL #empty the taxonomy column
+
+library(ALDEx2)
+
+######### two sample test for OTUs that differ between pups of mothers 
+######### treated with PolyIC+Bfrag or PolyIC
+#same workflow as when using the selex dataset
+dBvsI <- data.frame(d[,1:20])
+condsBvsI <- c(rep("BF", 10), rep("C", 10))
+dBvI.clr <- aldex.clr(dBvsI, mc.samples=1028)
+dBvI.tt <- aldex.ttest(dBvI.clr, condsBvsI)
+dBvI.effect <- aldex.effect(dBvI.clr, condsBvsI)
+dBvsI.all <- data.frame(dBvI.effect,dBvI.tt)
+
+#get OTU numbers
+rownames(dBvsI.all)[which(dSvsI.all$wi.ep < 0.05),]
+
+#reveals only OTUs 135 and 956 are in common with Figure 4 and Supplementary table 2.
+#OTUs 53, 638, 837, and 836 are not identified.
+#note that these latter 4 OTUs had very small read counts contrary to the first two.
+#ALSO NOTE: these are P values, not corrected for false discovery rates. The authors
+#did not correct for multiple tests 
+
+######### One-way ANOVA for OTUs that differ between pups of mothers 
+######### treated with PolyIC+Bfrag or PolyIC including the control saline group
+
+#there were 10 animals in each replicate
+conds <- c(rep("BF", 10), rep("C", 10), rep("Sal", 10))
+
+#calculate MC Dirichlet instances and clr transform
+d.clr <- aldex.clr(d, mc.samples=16) 
+
+#perform the ANOVA
+d.glm <- aldex.glm(d.clr, conds)
+
+#get OTU numbers
+d.glm[which(d.glm$kw.ep < 0.05),]
+
+#reveals that OTU 53 is now significant as a P value along with OTUs 135 and 956
+#Again, no values pass when corrected for false discovery by Benjamini-Hochberg
+#correction for multiple hypothesis testing. 
+
+######CONCLUSION
+#ALDEx2 recapitulates the observations that relative abundance changes in the most 
+#abundant organisms may correlate with B. fragilis treatment. However, these
+#conclusions are not robust to multiple test correction under either a two-sample
+#test or a one-way ANOVA test.
+#many other OTUs were too rare for robust conclusions, and were excluded by ALDEx2
+#this is not surprising, since there were between 2160 to 2947 reads per sample (mean 2608)
+#scattered amongst 1446 OTU sequences. In other words, the expected OTU read count per sample
+#was about 2, and the sequencing depth was likely not sufficient for robust conclusions.
+######
+
+\end{verbatim}
 \newpage
 
 \section{General information}
