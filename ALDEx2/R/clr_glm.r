@@ -30,12 +30,18 @@
 
 #returns a dataframe of expected P and fdr statistics for each feature
 
-aldex.glm <- function(clr, conditions){ 
+aldex.glm <- function(clr, conditions, useMC=FALSE){ 
     # make sure that the multicore package is in scope and return if available 
-    is.multicore <- require(parallel)
+    is.multicore <- "parallel" %in% rownames(installed.packages())
 
-if (is.multicore == TRUE) print("multicore environment is is OK")   
-if (is.multicore == FALSE) print("running in serial, not multicore, mode")   
+if (is.multicore == TRUE & useMC == TRUE){
+    print("multicore environment is is OK")
+    library(parallel)
+    }
+if (is.multicore == FALSE | useMC ==FALSE){
+    print("operating in serial mode") 
+    is.multicore = FALSE
+    }  
   
   # get dimensions, names, etc from the input data
   smpl.ids <- names(clr)
@@ -84,7 +90,7 @@ if (is.multicore == FALSE) print("running in serial, not multicore, mode")
         pps <- mclapply(x, drop1, test = "Chis", mc.cores=getOption("mc.cores", detectCores() ) )
     } else {
         pps <- lapply(x, drop1, test = "Chis")
-	}
+    }
     glm.matrix.p[, mc.i] <- sapply(pps, function(x){x[[5]][2]})
     glm.matrix.pBH[, mc.i] <- as.numeric(p.adjust(glm.matrix.p[, mc.i], method = "BH"))
     

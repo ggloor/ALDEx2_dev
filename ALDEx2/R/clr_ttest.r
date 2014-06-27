@@ -12,7 +12,7 @@
 # x.tt <- aldex.ttest(x,conditions)
  
 #returns a dataframe of expected P and fdr statistics for each feature
-aldex.ttest <- function(clr, conditions, paired.test=FALSE) {
+aldex.ttest <- function(clr, conditions, paired.test=FALSE, hist.plot=FALSE) {
     
     # get dimensions, names, etc from the input data
     smpl.ids <- names(clr)
@@ -56,7 +56,14 @@ aldex.ttest <- function(clr, conditions, paired.test=FALSE) {
 		we.BH.matrix[,mc.i] <- as.numeric(p.adjust(we.p.matrix[,mc.i], method="BH"))
 		
 	}
-
+	if (hist.plot == TRUE) {
+		par(mfrow=c(2,2))
+		hist(we.p.matrix[,1], breaks=99, main="Welch's P values Instance 1")
+		hist(wi.p.matrix[,1], breaks=99, main="Wilcoxon P values Instance 1")
+		hist(we.BH.matrix[,1], breaks=99, main="Welch's BH values Instance 1")
+		hist(wi.BH.matrix[,1], breaks=99, main="Wilcoxon BH values Instance 1")
+		par(mfrow=c(1,1))
+	}
 	#get the Expected values of p, q and lfdr
 	we.ep <- apply(we.p.matrix, 1, mean)
 	we.eBH <- apply(we.BH.matrix,1,mean)

@@ -8,7 +8,7 @@
     determines the effect size, which is the median of the ratio of the between group difference and the larger of the variance within groups
 }
 \usage{
-aldex.effect(clr, conditions, verbose = TRUE, include.sample.summary = FALSE)
+aldex.effect(clr, conditions, verbose = TRUE, include.sample.summary = FALSE, useMC=FALSE)
 }
 \arguments{
     \item{clr}{
@@ -23,6 +23,9 @@ aldex.effect(clr, conditions, verbose = TRUE, include.sample.summary = FALSE)
     \item{include.sample.summary}{
         include median clr values for each sample, defaults to FALSE
     }
+      \item{useMC}{
+    use multicore by default (FALSE)
+}
 }
 \details{
     An explicit example for two conditions is shown in the `Examples' below.
@@ -67,5 +70,8 @@ aldex.effect(clr, conditions, verbose = TRUE, include.sample.summary = FALSE)
     # x is the output of the \code{x <- clr(data, mc.samples)} function
     # conditions is a description of the data
     # for the selex dataset, conditions <- c(rep("N", 7), rep("S", 7))
-    # effect.test <- aldex.effect(x, conditions)
+    data(selex)
+    x <- aldex.clr(selex, mc.samples=2)
+    conditions <- c(rep("N", 7), rep("S", 7))
+    effect.test <- aldex.effect(x, conditions)
 }

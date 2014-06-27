@@ -7,7 +7,7 @@
     calculates expected values of the glm and Kruskal Wallis functions on the data returned by clr_function.r
 }
 \usage{
-aldex.glm(clr, conditions)
+aldex.glm(clr, conditions, useMC=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,6 +16,9 @@ aldex.glm(clr, conditions)
 }
   \item{conditions}{
     a description of the data structure to be used for testing
+}
+  \item{useMC}{
+    use multicore by default (FALSE)
 }
 }
 \details{
@@ -54,5 +57,8 @@ aldex.glm(clr, conditions)
     # x is the output of the \code{x <- aldex.clr(data, mc.samples)} function
     # conditions is a description of the data
     # for the selex dataset, conditions <- c(rep("N", 7), rep("S", 7))
-    # glm.test <- aldex.glm(x, conditions)
+    data(selex)
+    x <- aldex.clr(selex, mc.samples=1)
+    conditions <- c(rep("N", 7), rep("S", 7))
+    glm.test <- aldex.glm(x, conditions)
 }

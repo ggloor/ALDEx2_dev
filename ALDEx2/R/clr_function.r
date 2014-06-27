@@ -4,7 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr <- function( reads, mc.samples=128, verbose=FALSE) {
+aldex.clr <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -30,10 +30,16 @@ aldex.clr <- function( reads, mc.samples=128, verbose=FALSE) {
 
     # Fully validate and coerce the data into required formats
     # make sure that the multicore package is in scope and return if available 
-    is.multicore <- require(parallel)
+    is.multicore <- "parallel" %in% rownames(installed.packages())
 
-if (is.multicore == TRUE) print("multicore environment is is OK")   
-if (is.multicore == FALSE) print("running in serial, not multicore, mode")   
+if (is.multicore == TRUE & useMC == TRUE){
+    print("multicore environment is is OK")
+    require(parallel)
+    }
+if (is.multicore == FALSE | useMC ==FALSE){
+    print("operating in serial mode") 
+    is.multicore = FALSE
+    }  
  
     #  remove all rows with reads less than the minimum set by minsum 
     minsum <- 0

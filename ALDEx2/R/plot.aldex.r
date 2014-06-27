@@ -8,21 +8,21 @@ aldex.plot <- function( x, ..., type=c("MW","MA"),
 ){
     type <- match.arg(type)
 
-	if (length(x$effect) == 0) stop ("Please run aldex.effect before plotting")
+    if (length(x$effect) == 0) stop ("Please run aldex.effect before plotting")
 
     if (test == "welch"){
-    	if (length(x$we.eBH) == 0) stop ("Welch's t test results not in dataset")
+        if (length(x$we.eBH) == 0) stop ("Welch's t test results not in dataset")
         called <- x$we.eBH <= cutoff
     }else if (test == "wilcox"){
-    	if (length(x$wi.eBH) == 0) stop ("Wilcoxon test results not in dataset")
+        if (length(x$wi.eBH) == 0) stop ("Wilcoxon test results not in dataset")
         called <- x$wi.eBH <= cutoff
     }
     if (test == "glm"){
-    	if (length(x$glm.eBH) == 0) stop ("glm test results not in dataset")
+        if (length(x$glm.eBH) == 0) stop ("glm test results not in dataset")
         called <- x$glm.eBH <= cutoff
     }
     if (test == "kruskal"){
-    	if (length(x$kw.eBH) == 0) stop ("Kruskall-Wallace test results not in dataset")
+        if (length(x$kw.eBH) == 0) stop ("Kruskall-Wallace test results not in dataset")
         called <- x$kw.eBH <= cutoff
     }
     if ( type == "MW" ) {

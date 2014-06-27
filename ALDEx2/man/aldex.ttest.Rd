@@ -7,7 +7,7 @@
     calculates expected values of the Welch's t-test and Wilcoxon rank test on the data returned by clr_function.r
 }
 \usage{
-aldex.ttest(clr, conditions, paired.test = FALSE)
+aldex.ttest(clr, conditions, paired.test = FALSE, hist.plot=FALSE)
 }
 \arguments{
   \item{clr}{
@@ -19,6 +19,9 @@ aldex.ttest(clr, conditions, paired.test = FALSE)
   \item{paired.test}{
     whether the Welch's test should be paired or not
 }
+  \item{hist.plot}{
+    whether to plot a histogram of P values for an individual Dirichlet Monte-Carlo instance. Plot is output to the standard R plotting device.
+}
 }
 \details{
     An explicit example for two conditions is shown in the `Examples' below.
@@ -28,7 +31,7 @@ aldex.ttest(clr, conditions, paired.test = FALSE)
     \item{we.ep}{
         a vector containing the expected P value of the Welch's t-test for each feature
     }    
-    \item{wi.eBH}{
+    \item{we.eBH}{
         a vector containing the expected value of the Benjamini Hochberg corrected P value for each feature    
     }
     \item{wi.ep}{
@@ -55,6 +58,9 @@ aldex.ttest(clr, conditions, paired.test = FALSE)
     # x is the output of the \code{x <- aldex.clr(data, mc.samples)} function
     # conditions is a description of the data
     # for the selex dataset, conditions <- c(rep("N", 7), rep("S", 7))
-    # ttest.test <- aldex.ttest(x, conditions)
+    data(selex)
+    x <- aldex.clr(selex, mc.samples=2)
+    conditions <- c(rep("N", 7), rep("S", 7))
+    ttest.test <- aldex.ttest(x, conditions)
 
 }

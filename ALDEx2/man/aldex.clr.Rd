@@ -8,7 +8,7 @@
     This is the input for all further analyses.
 }
 \usage{
-aldex.clr(reads, mc.samples = 128, verbose = FALSE)
+aldex.clr(reads, mc.samples = 128, verbose = FALSE, useMC=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,7 +19,10 @@ aldex.clr(reads, mc.samples = 128, verbose = FALSE)
         the number of Monte Carlo samples to use to estimate the underlying distributions; since we are estimating central tendencies, 128 is usually sufficient
 }
   \item{verbose}{
-		Print diagnostic information while running. Useful only for debugging if fails on large datasets
+        Print diagnostic information while running. Useful only for debugging if fails on large datasets
+}  
+\item{useMC}{
+    use multicore by default (FALSE)
 }
 }
 \details{
@@ -57,7 +60,7 @@ An explicit description of the input format for the \code{reads} object is shown
     #   Gene_00006 129 126 451 223 243 149 209
     #       ... many more rows ...
     
-    # reads <- data(selex)
-    # x <- aldex.clr(selex, mc.samples = 128, verbose = TRUE)
+    data(selex)
+    x <- aldex.clr(selex, mc.samples = 2, verbose = FALSE)
 
 }

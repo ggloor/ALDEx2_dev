@@ -32,7 +32,7 @@ aldex(reads, conditions, mc.samples=128, test="t", effect=TRUE, include.sample.s
     }
 
   \item{verbose}{
-		Print diagnostic information while running. Useful only for debugging if fails on large datasets
+        Print diagnostic information while running. Useful only for debugging if fails on large datasets
 }
 }
 \details{
@@ -71,8 +71,8 @@ This is not intended to be the generic function. The system is intended to be us
     #   Gene_00006 129 126 451 223 243 149 209
     #       ... many more rows ...
     
-    # reads <- data(selex)
-    # conds <- c(rep("N", 7), rep("S",7))
-    # x <- aldex(selex, conds, mc.samples = 128, test="t", effect=TRUE, verbose = TRUE)
+    data(selex)
+    conds <- c(rep("N", 7), rep("S",7))
+    x <- aldex(selex, conds, mc.samples = 2, test="t", effect=FALSE, verbose = FALSE)
 
 }

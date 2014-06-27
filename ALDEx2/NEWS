@@ -1,0 +1,13 @@
+CHANGES IN VERSION 0.99.1
+-------------------------
+
+NEW FEATURES
+
+    o changed conditional tests for multiprocessor use, defaults to FALSE
+
+CHANGES IN VERSION 0.99.0
+-------------------------
+
+NEW FEATURES
+
+    o first submission to Bioc-devel

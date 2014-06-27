@@ -4,19 +4,26 @@
 # data is returned in a data frame
 # requires multicore
 
-aldex.effect <- function(clr, conditions, verbose=TRUE, include.sample.summary=FALSE){
+aldex.effect <- function(clr, conditions, verbose=TRUE, include.sample.summary=FALSE, useMC=FALSE){
 
-    is.multicore <- require(parallel)
+    is.multicore <- "parallel" %in% rownames(installed.packages())
 
-if (is.multicore == TRUE) print("multicore environment is is OK")   
-if (is.multicore == FALSE) print("multicore not present operating in serial mode")   
-	
-	nr <- length(clr[[1]][,1]) # number of features
-	rn <- rownames(clr[[1]]) # feature names
+if (is.multicore == TRUE & useMC == TRUE){
+    print("multicore environment is OK")
+    require(parallel)
+    }
+
+if (is.multicore == FALSE | useMC ==FALSE){
+    print("operating in serial mode") 
+    is.multicore = FALSE
+    }  
+    
+    nr <- length(clr[[1]][,1]) # number of features
+    rn <- rownames(clr[[1]]) # feature names
     # ---------------------------------------------------------------------
 
-	# sanity check to ensure only two conditons passed to this function
-	conditions <- as.factor( conditions )
+    # sanity check to ensure only two conditons passed to this function
+    conditions <- as.factor( conditions )
     levels     <- levels( conditions )
     
     if ( length( conditions ) !=  length(clr) ) stop("mismatch btw 'length(conditions)' and 'ncol(reads)'")
@@ -58,7 +65,7 @@ if (verbose == TRUE) print("sanity check complete")
     }
  if (verbose == TRUE) print("rab.win  complete")
 
-	if (is.multicore == TRUE)  rab$spl <- mclapply( clr, function(m) { t(apply( m, 1, median )) }, mc.cores=getOption("mc.cores", detectCores() ) )
+    if (is.multicore == TRUE)  rab$spl <- mclapply( clr, function(m) { t(apply( m, 1, median )) }, mc.cores=getOption("mc.cores", detectCores() ) )
     if (is.multicore == FALSE) rab$spl <- lapply( clr, function(m) { t(apply( m, 1, median )) } )
 
 if (verbose == TRUE) print("rab of samples complete")
@@ -73,19 +80,19 @@ if (verbose == TRUE) print("rab of samples complete")
     # abs( win-conditions diff ), btw smps
 #this generates a linear sample of the values rather than an exhaustive sample
     for ( level in levels(conditions) ) {
-    	concat <- NULL
+        concat <- NULL
         for ( l1 in sort( levels[[level]] ) ) {
-        	concat <- cbind(  clr[[l1]],concat )
-        	
+            concat <- cbind(  clr[[l1]],concat )
+            
         }
         
         #if the sample is huge, only sample 10000
         if ( ncol(concat) < 10000 ){
-			sampl1 <- t(apply(concat, 1, function(x){sample(x, ncol(concat))}))
-			sampl2 <- t(apply(concat, 1, function(x){sample(x, ncol(concat))}))
+            sampl1 <- t(apply(concat, 1, function(x){sample(x, ncol(concat))}))
+            sampl2 <- t(apply(concat, 1, function(x){sample(x, ncol(concat))}))
         } else {
-			sampl1 <- t(apply(concat, 1, function(x){sample(x, 10000)}))
-			sampl2 <- t(apply(concat, 1, function(x){sample(x, 10000)}))
+            sampl1 <- t(apply(concat, 1, function(x){sample(x, 10000)}))
+            sampl2 <- t(apply(concat, 1, function(x){sample(x, 10000)}))
         }
         l2d$win[[level]] <- cbind( l2d$win[[level]] , abs( sampl1 - sampl2 ) )
         rm(sampl1)
@@ -101,45 +108,45 @@ if (verbose == TRUE) print("within sample difference calculated")
     if (is.multicore == FALSE) l2d$win  <- lapply( l2d$win, function(arg) { arg[,1:ncol.wanted] } )
 
     # btw condition diff (signed)
-	#get the btw condition as a random sample rather than exhaustive search
-	concatl1 <- NULL
-	concatl2 <- NULL
-	for( l1 in levels[[1]] ) concatl1 <- cbind( clr[[l1]],concatl1 )
-	for( l2 in levels[[2]] ) concatl2 <- cbind( clr[[l2]],concatl2 )
-		
-	sample.size <- min(ncol(concatl1), ncol(concatl2))
+    #get the btw condition as a random sample rather than exhaustive search
+    concatl1 <- NULL
+    concatl2 <- NULL
+    for( l1 in levels[[1]] ) concatl1 <- cbind( clr[[l1]],concatl1 )
+    for( l2 in levels[[2]] ) concatl2 <- cbind( clr[[l2]],concatl2 )
+        
+    sample.size <- min(ncol(concatl1), ncol(concatl2))
 
-	if ( sample.size < 10000 ){
-		smpl1 <- t(apply(concatl1, 1, function(x){sample(x, sample.size)}))
-		smpl2 <- t(apply(concatl2, 1, function(x){sample(x, sample.size)}))
-	} else {
-		smpl1 <- t(apply(concatl1, 1, function(x){sample(x, 10000)}))
-		smpl2 <- t(apply(concatl2, 1, function(x){sample(x, 10000)}))
-	}
-	l2d$btw <- smpl2 - smpl1
+    if ( sample.size < 10000 ){
+        smpl1 <- t(apply(concatl1, 1, function(x){sample(x, sample.size)}))
+        smpl2 <- t(apply(concatl2, 1, function(x){sample(x, sample.size)}))
+    } else {
+        smpl1 <- t(apply(concatl1, 1, function(x){sample(x, 10000)}))
+        smpl2 <- t(apply(concatl2, 1, function(x){sample(x, 10000)}))
+    }
+    l2d$btw <- smpl2 - smpl1
 
-	rm(smpl1)
-	rm(smpl2)
-	gc()
+    rm(smpl1)
+    rm(smpl2)
+    gc()
 if (verbose == TRUE) print("between group difference calculated")
 
     win.max <- matrix( 0 , nrow=nr , ncol=ncol.wanted )
     l2d$effect <- matrix( 0 , nrow=nr , ncol=ncol(l2d$btw) )
     rownames(l2d$effect) <- rn
-	
+    
 ###the number of elements in l2d$btw and l2d$win may leave a remainder when
   #recycling these random vectors. Warnings are suppressed because this is not an issue
   #for this calculation. In fact, any attempt to get rid of this error would
   #decrease our power as one or both vectors would need to be truncated gg 20/06/2013
   
-	options(warn=-1)
+    options(warn=-1)
     
     for ( i in 1:nr ) {
         win.max[i,] <- apply( ( rbind( l2d$win[[1]][i,] , l2d$win[[2]][i,] ) ) , 2 , max )
         l2d$effect[i,] <- l2d$btw[i,] / win.max[i,]
     }
 
-	options(warn=0)
+    options(warn=0)
 
     rownames(win.max)   <- rn
     attr(l2d$win,"max") <- win.max
