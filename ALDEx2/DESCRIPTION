@@ -6,6 +6,7 @@ Suggests: parallel
 Date: 2014-06-27
 Author: Greg Gloor, Andrew Fernandes, Arianne Albert, Matt Links
 Maintainer: Greg Gloor <ggloor@uwo.ca>
+Depends: Methods
 biocViews: DifferentialExpression, RNASeq, DNASeq, ChIPSeq, GeneExpression, Bayesian, Sequencing, Software
 Description: A differential abundance analysis for the comparison of two or more 
     conditions. For example, single-organism and meta-RNA-seq high-throughput 
