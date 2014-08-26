@@ -44,15 +44,15 @@ if (is.multicore == FALSE | useMC ==FALSE){
     }  
   
   # get dimensions, names, etc from the input data
-  smpl.ids <- names(clr)
-  feature.number <- length(clr[[1]][,1])
-  mc.instances <- length(clr[[1]][1,])
-  feature.names <- rownames(clr[[1]])
+  smpl.ids <- getSampleIDs(clr)
+    feature.number <- numFeatures(clr)
+    mc.instances <- numMCInstances(clr)
+    feature.names <- getFeatureNames(clr)
   
   conditions <- as.factor( conditions )
   levels     <- levels( conditions )
   
-  if ( length( conditions ) !=  length(names(clr)) )  stop("mismatch btw 'length(conditions)' and 'length(names(clr))'")
+  if ( length( conditions ) !=  numConditions(clr) )  stop("mismatch btw 'length(conditions)' and 'length(names(clr))'")
   
   levels <- vector( "list", length( levels ) )
   names( levels ) <- levels( conditions )
@@ -77,7 +77,7 @@ if (is.multicore == FALSE | useMC ==FALSE){
     print(mc.i)
     
     #generate a matrix of each Monte-Carlo instance, columns are samples, rows are features
-    t.input <- sapply(clr, function(y){y[,mc.i]})
+    t.input <- sapply(getMonteCarloInstances(clr), function(y){y[,mc.i]})
     
     # do glms on each feature
     # make a list of glm outputs
@@ -110,7 +110,7 @@ if (is.multicore == FALSE | useMC ==FALSE){
   kw.eBH <- apply(kw.pBH.matrix, 1, mean)
   
   z <- data.frame(kw.ep, kw.eBH, glm.ep, glm.eBH)
-  rownames(z) <- rownames(clr[[1]])
+  rownames(z) <- getFeatureNames(clr)
   return(z)
   
 }

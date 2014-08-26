@@ -4,7 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE) {
+aldex.clr <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, analysisData=list()) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -41,6 +41,9 @@ if (is.multicore == FALSE | useMC ==FALSE){
     is.multicore = FALSE
     }  
  
+    # make sure that mc.samples is an integer, despite it being a numeric type value
+    as.numeric(as.integer(mc.samples))
+
     #  remove all rows with reads less than the minimum set by minsum 
     minsum <- 0
     
@@ -121,7 +124,27 @@ if (verbose == TRUE) print("dirichlet samples complete")
     }
 if (verbose == TRUE) print("clr transformation complete")
     
-    return(l2p)
+    return(new("aldex.clr",reads=reads,mc.samples=mc.samples,verbose=verbose,useMC=useMC,analysisData=l2p))
 }
 
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Getters
+###
+
+setMethod("getMonteCarloInstances", signature(.object="aldex.clr"), function(.object) .object@analysisData)
+
+setMethod("getSampleIDs", "aldex.clr", function(.object) names(.object@analysisData))
+
+setMethod("numFeatures", signature(.object="aldex.clr"), function(.object) length(.object@analysisData[[1]][,1]))
+
+setMethod("numMCInstances", signature(.object="aldex.clr"), function(.object) length(.object@analysisData[[1]][1,]))
+
+setMethod("getFeatureNames", signature(.object="aldex.clr"), function(.object) rownames(.object@analysisData[[1]]))
+
+setMethod("getReads", signature(.object="aldex.clr"), function(.object) .object@reads)
+
+setMethod("numConditions", signature(.object="aldex.clr"), function(.object) length(names(.object@analysisData)))
+
+setMethod("getMonteCarloReplicate", signature(.object="aldex.clr",i="numeric"), function(.object,i) .object@analysisData[[i]])
 

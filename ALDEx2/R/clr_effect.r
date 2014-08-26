@@ -18,15 +18,15 @@ if (is.multicore == FALSE | useMC ==FALSE){
     is.multicore = FALSE
     }  
     
-    nr <- length(clr[[1]][,1]) # number of features
-    rn <- rownames(clr[[1]]) # feature names
+    nr <- numFeatures(clr) # number of features
+    rn <- getFeatureNames(clr) # feature names
     # ---------------------------------------------------------------------
 
     # sanity check to ensure only two conditons passed to this function
     conditions <- as.factor( conditions )
     levels     <- levels( conditions )
     
-    if ( length( conditions ) !=  length(clr) ) stop("mismatch btw 'length(conditions)' and 'ncol(reads)'")
+    if ( length( conditions ) !=  numConditions(clr) ) stop("mismatch btw 'length(conditions)' and 'ncol(reads)'")
 
     if ( length( levels ) != 2 ) stop("only two condition levels are currently supported")
  
@@ -49,7 +49,7 @@ if (verbose == TRUE) print("sanity check complete")
     
     #this is the median value across all monte carlo replicates
     cl2p <- NULL
-    for ( m in clr ) cl2p <- cbind( cl2p, m )
+    for ( m in getMonteCarloInstances(clr) ) cl2p <- cbind( cl2p, m )
     rab$all <- t(apply( cl2p, 1, median ))
     rm(cl2p)
     gc()
@@ -58,15 +58,15 @@ if (verbose == TRUE) print("sanity check complete")
     #this is the median value across all monte carlo replicates per level
     for ( level in levels(conditions) ) {
         cl2p <- NULL
-        for ( i in levels[[level]] ) cl2p <- cbind( cl2p, clr[[i]] )
+        for ( i in levels[[level]] ) cl2p <- cbind( cl2p, getMonteCarloReplicate(clr,i) )
         rab$win[[level]] <- t(apply( cl2p, 1, median ))
         rm(cl2p)
         gc()
     }
  if (verbose == TRUE) print("rab.win  complete")
 
-    if (is.multicore == TRUE)  rab$spl <- mclapply( clr, function(m) { t(apply( m, 1, median )) }, mc.cores=getOption("mc.cores", detectCores() ) )
-    if (is.multicore == FALSE) rab$spl <- lapply( clr, function(m) { t(apply( m, 1, median )) } )
+    if (is.multicore == TRUE)  rab$spl <- mclapply( getMonteCarloInstances(clr), function(m) { t(apply( m, 1, median )) }, mc.cores=getOption("mc.cores", detectCores() ) )
+    if (is.multicore == FALSE) rab$spl <- lapply( getMonteCarloInstances(clr), function(m) { t(apply( m, 1, median )) } )
 
 if (verbose == TRUE) print("rab of samples complete")
 
@@ -82,7 +82,7 @@ if (verbose == TRUE) print("rab of samples complete")
     for ( level in levels(conditions) ) {
         concat <- NULL
         for ( l1 in sort( levels[[level]] ) ) {
-            concat <- cbind(  clr[[l1]],concat )
+            concat <- cbind(  getMonteCarloReplicate(clr,l1),concat )
             
         }
         
@@ -111,8 +111,8 @@ if (verbose == TRUE) print("within sample difference calculated")
     #get the btw condition as a random sample rather than exhaustive search
     concatl1 <- NULL
     concatl2 <- NULL
-    for( l1 in levels[[1]] ) concatl1 <- cbind( clr[[l1]],concatl1 )
-    for( l2 in levels[[2]] ) concatl2 <- cbind( clr[[l2]],concatl2 )
+    for( l1 in levels[[1]] ) concatl1 <- cbind( getMonteCarloReplicate(clr,l1),concatl1 )
+    for( l2 in levels[[2]] ) concatl2 <- cbind( getMonteCarloReplicate(clr,l2),concatl2 )
         
     sample.size <- min(ncol(concatl1), ncol(concatl2))
 
