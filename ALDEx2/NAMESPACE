@@ -1,3 +1,4 @@
 #import( parallel )
 export( aldex )
 exportPattern( "^aldex[.]*" )
+importClassesFrom(GenomicRanges,SummarizedExperiment)

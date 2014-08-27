@@ -16,4 +16,6 @@ setGeneric("getReads", function(.object, ...) standardGeneric("getReads"))
 
 setGeneric("numConditions", function(.object, ...) standardGeneric("numConditions"))
 
-setGeneric("getMonteCarloReplicate", function(.object, i, ...) standardGeneric("getMonteCarloReplicate"))
+setGeneric("getMonteCarloReplicate", function(.object, i=-1, ...) standardGeneric("getMonteCarloReplicate"))
+
+setGeneric("aldex.clr", function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE, ...) standardGeneric("aldex.clr"))

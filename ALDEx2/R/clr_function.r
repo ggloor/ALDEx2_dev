@@ -4,7 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, analysisData=list()) {
+aldex.clr <- function( reads = data.frame(), mc.samples=128, verbose=FALSE, useMC=FALSE, summarizedExperiment=FALSE) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -28,10 +28,15 @@ aldex.clr <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, analys
 # number of Monte-Carlo Dirichlet instances: length(x[[1]][1,])
 # feature names: rownames(x[[1]])
 
+# coerce SummarizedExperiment reads into data.frame
+if (summarizedExperiment) {
+    reads <- data.frame(assays(reads,withDimnames=TRUE))
+}
+
     # Fully validate and coerce the data into required formats
     # make sure that the multicore package is in scope and return if available 
     is.multicore <- "parallel" %in% rownames(installed.packages())
-
+    
 if (is.multicore == TRUE & useMC == TRUE){
     print("multicore environment is is OK")
     require(parallel)
@@ -147,4 +152,9 @@ setMethod("getReads", signature(.object="aldex.clr"), function(.object) .object@
 setMethod("numConditions", signature(.object="aldex.clr"), function(.object) length(names(.object@analysisData)))
 
 setMethod("getMonteCarloReplicate", signature(.object="aldex.clr",i="numeric"), function(.object,i) .object@analysisData[[i]])
+
+setMethod("aldex.clr", signature(reads="data.frame",mc.samples="missing",verbose="missing",useMC="missing"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr(.object, mc.samples, verbose, useMC, analysisData))
+
+setMethod("aldex.clr", signature(reads="SummarizedExperiment",mc.samples="missing",verbose="missing",useMC="missing"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr(.object, mc.samples, verbose, useMC, analysisData, summarizedExperiment=TRUE))
+
 
