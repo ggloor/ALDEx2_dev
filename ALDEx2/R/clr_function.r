@@ -35,15 +35,20 @@ if (summarizedExperiment) {
 
     # Fully validate and coerce the data into required formats
     # make sure that the multicore package is in scope and return if available 
-    is.multicore <- "parallel" %in% rownames(installed.packages())
-    
-if (is.multicore == TRUE & useMC == TRUE){
-    print("multicore environment is is OK")
-    require(parallel)
+    has.BiocParallel <- FALSE
+    has.parallel <- FALSE
+    if ("BiocParallel" %in% rownames(installed.packages()) & useMC){
+        print("multicore environment is is OK")
+        require(BiocParallel)
+        has.BiocParallel <- TRUE
     }
-if (is.multicore == FALSE | useMC ==FALSE){
-    print("operating in serial mode") 
-    is.multicore = FALSE
+    else if ("parallel" %in% rownames(installed.packages()) & useMC){
+        print("multicore environment is is OK")
+        require(parallel)
+        has.parallel <- TRUE
+    }
+    else {
+        print("operating in serial mode")
     }  
  
     # make sure that mc.samples is an integer, despite it being a numeric type value
@@ -87,13 +92,21 @@ if (verbose == TRUE) print("data format is OK")
     #total number of reads per sample
     
     # environment test, runs in multicore if possible
-    if (is.multicore == TRUE){
+    if (has.BiocParallel){
+        p <- bplapply( reads , 
+            function(col) {
+                q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
+                rownames(q) <- rn ; 
+                q })
+    }
+    else if (has.parallel) {
         p <- mclapply( reads , 
             function(col) {
                 q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
                 rownames(q) <- rn ; 
                 q }, mc.cores=getOption( "mc.cores", detectCores() ) )
-    }else{
+    }
+    else{
         p <- lapply( reads , 
             function(col) { 
                 q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
@@ -112,12 +125,19 @@ if (verbose == TRUE) print("dirichlet samples complete")
     # i.e., do a centered logratio transformation as per Aitchison
     
     #apply the function over elements in a list, that contains an array
-    if (is.multicore == TRUE){
+    if (has.BiocParallel){
+        l2p <- bplapply( p, function(m) {
+            apply( log2(m), 2, function(col) { col - mean(col) } )
+        })
+        
+    }
+    else if (has.parallel){
         l2p <- mclapply( p, function(m) {
             apply( log2(m), 2, function(col) { col - mean(col) } )
         },mc.cores=getOption("mc.cores", detectCores() ))
         
-    }else{
+    }
+    else{
         l2p <- lapply( p, function(m) {
             apply( log2(m), 2, function(col) { col - mean(col) } )
         })

@@ -1,7 +1,7 @@
 Package: ALDEx2
 Type: Package
 Title: Analysis of differential abundance taking sample variation into account
-Version: 0.99.1
+Version: 0.99.2
 Suggests: parallel  
 Date: 2014-06-27
 Author: Greg Gloor, Andrew Fernandes, Arianne Albert, Matt Links
