@@ -4,7 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr <- function( reads = data.frame(), mc.samples=128, verbose=FALSE, useMC=FALSE, summarizedExperiment=FALSE) {
+aldex.clr.function <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -30,7 +30,10 @@ aldex.clr <- function( reads = data.frame(), mc.samples=128, verbose=FALSE, useM
 
 # coerce SummarizedExperiment reads into data.frame
 if (summarizedExperiment) {
-    reads <- data.frame(assays(reads,withDimnames=TRUE))
+    reads <- data.frame(as.list(assays(reads,withDimnames=TRUE)))
+    if (verbose) {
+        print("converted SummarizedExperiment read count object into data frame")
+    }
 }
 
     # Fully validate and coerce the data into required formats
@@ -38,12 +41,12 @@ if (summarizedExperiment) {
     has.BiocParallel <- FALSE
     has.parallel <- FALSE
     if ("BiocParallel" %in% rownames(installed.packages()) & useMC){
-        print("multicore environment is is OK")
+        print("multicore environment is is OK -- using the BiocParallel package")
         require(BiocParallel)
         has.BiocParallel <- TRUE
     }
     else if ("parallel" %in% rownames(installed.packages()) & useMC){
-        print("multicore environment is is OK")
+        print("multicore environment is is OK -- using the parallel package")
         require(parallel)
         has.parallel <- TRUE
     }
@@ -58,9 +61,13 @@ if (summarizedExperiment) {
     minsum <- 0
     
     # remove any row in which the sum of the row is 0
+    print("after minsum")
+    print(paste("reads class:",class(reads)))
     z <- as.numeric(apply(reads, 1, sum))
+    print("made rowsum")
     reads <- as.data.frame( reads[(which(z > minsum)),]  )
-    
+    print("removed rows w/ sum <=0")
+
     #  SANITY CHECKS ON THE DATA INPUT    
     if ( any( round(reads) != reads ) ) stop("not all reads are integers")
     if ( any( reads < 0 ) )             stop("one or more reads are negative")
@@ -173,8 +180,8 @@ setMethod("numConditions", signature(.object="aldex.clr"), function(.object) len
 
 setMethod("getMonteCarloReplicate", signature(.object="aldex.clr",i="numeric"), function(.object,i) .object@analysisData[[i]])
 
-setMethod("aldex.clr", signature(reads="data.frame",mc.samples="missing",verbose="missing",useMC="missing"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr(.object, mc.samples, verbose, useMC, analysisData))
+setMethod("aldex.clr", signature(reads="data.frame"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, mc.samples, verbose, useMC, summarizedExperiment=FALSE))
 
-setMethod("aldex.clr", signature(reads="SummarizedExperiment",mc.samples="missing",verbose="missing",useMC="missing"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr(.object, mc.samples, verbose, useMC, analysisData, summarizedExperiment=TRUE))
+setMethod("aldex.clr", signature(reads="SummarizedExperiment"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, mc.samples, verbose, useMC, summarizedExperiment=TRUE))
 
 
