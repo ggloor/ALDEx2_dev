@@ -27,7 +27,7 @@ aldex.ttest <- function(clr, conditions, paired.test=FALSE, hist.plot=FALSE) {
     conditions <- as.factor( conditions )
     levels     <- levels( conditions )
     
-    if ( length( conditions ) !=  numConditions(clr) )  stop("mismatch btw 'length(conditions)' and 'length(names(clr))'")
+    if ( length( conditions ) !=  numConditions(clr) )  stop(paste("mismatch btw 'length(conditions)' and 'length(names(clr))'. len(condtitions):",length(conditions),"len(names(clr)):",numConditions(clr)))
 
     if ( length( levels ) != 2 ) stop("only two condition levels are currently supported")
  

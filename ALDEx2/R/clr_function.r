@@ -61,12 +61,10 @@ if (summarizedExperiment) {
     minsum <- 0
     
     # remove any row in which the sum of the row is 0
-    print("after minsum")
-    print(paste("reads class:",class(reads)))
     z <- as.numeric(apply(reads, 1, sum))
-    print("made rowsum")
     reads <- as.data.frame( reads[(which(z > minsum)),]  )
-    print("removed rows w/ sum <=0")
+    if (verbose) print("removed rows with sums equal to zero")
+    
 
     #  SANITY CHECKS ON THE DATA INPUT    
     if ( any( round(reads) != reads ) ) stop("not all reads are integers")
@@ -105,6 +103,7 @@ if (verbose == TRUE) print("data format is OK")
                 q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
                 rownames(q) <- rn ; 
                 q })
+        names(p) <- names(reads)
     }
     else if (has.parallel) {
         p <- mclapply( reads , 
@@ -136,7 +135,7 @@ if (verbose == TRUE) print("dirichlet samples complete")
         l2p <- bplapply( p, function(m) {
             apply( log2(m), 2, function(col) { col - mean(col) } )
         })
-        
+        names(l2p) <- names(p)
     }
     else if (has.parallel){
         l2p <- mclapply( p, function(m) {
