@@ -1,11 +1,13 @@
 Package: ALDEx2
 Type: Package
 Title: Analysis of differential abundance taking sample variation into account
-Version: 0.99.1
-Suggests: parallel  
+Version: 0.99.2
+Suggests: parallel, BiocParallel
 Date: 2014-06-27
 Author: Greg Gloor, Andrew Fernandes, Arianne Albert, Matt Links
 Maintainer: Greg Gloor <ggloor@uwo.ca>
+Depends: methods
+Imports: GenomicRanges
 biocViews: DifferentialExpression, RNASeq, DNASeq, ChIPSeq, GeneExpression, Bayesian, Sequencing, Software
 Description: A differential abundance analysis for the comparison of two or more 
     conditions. For example, single-organism and meta-RNA-seq high-throughput 

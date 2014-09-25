@@ -1,7 +1,8 @@
 aldex <- function(reads, conditions, mc.samples=128, test="t", effect=TRUE, include.sample.summary=FALSE, verbose=FALSE){
-    # wrapper function for the entire set of functions
+    
+    # wrapper function for the entire set of 
     print("aldex.clr: generating Monte-Carlo instances and clr values")
-    x <- aldex.clr(reads, mc.samples, verbose)
+    x <- aldex.clr(reads=reads, mc.samples=mc.samples, verbose=verbose,useMC=TRUE)
     if(test == "t") {
         print("aldex.ttest: doing t-test")
         x.tt <- aldex.ttest(x, conditions, paired.test=FALSE)

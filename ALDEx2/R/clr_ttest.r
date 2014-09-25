@@ -15,15 +15,19 @@
 aldex.ttest <- function(clr, conditions, paired.test=FALSE, hist.plot=FALSE) {
     
     # get dimensions, names, etc from the input data
-    smpl.ids <- names(clr)
-    feature.number <- length(clr[[1]][,1])
-    mc.instances <- length(clr[[1]][1,])
-    feature.names <- rownames(clr[[1]])
-    
+ #   smpl.ids <- names(clr)
+ #   feature.number <- length(clr[[1]][,1])
+ #   mc.instances <- length(clr[[1]][1,])
+ #   feature.names <- rownames(clr[[1]])
+    smpl.ids <- getSampleIDs(clr)
+    feature.number <- numFeatures(clr)
+    mc.instances <- numMCInstances(clr)
+    feature.names <- getFeatureNames(clr)
+
     conditions <- as.factor( conditions )
     levels     <- levels( conditions )
     
-    if ( length( conditions ) !=  length(names(clr)) )  stop("mismatch btw 'length(conditions)' and 'length(names(clr))'")
+    if ( length( conditions ) !=  numConditions(clr) )  stop(paste("mismatch btw 'length(conditions)' and 'length(names(clr))'. len(condtitions):",length(conditions),"len(names(clr)):",numConditions(clr)))
 
     if ( length( levels ) != 2 ) stop("only two condition levels are currently supported")
  
@@ -45,7 +49,7 @@ aldex.ttest <- function(clr, conditions, paired.test=FALSE, hist.plot=FALSE) {
 	for(mc.i in 1:mc.instances){
 	
 		#generate a matrix of each Monte-Carlo instance, columns are samples, rows are features
-		t.input <- sapply(clr, function(y){y[,mc.i]})
+		t.input <- sapply(getMonteCarloInstances(clr), function(y){y[,mc.i]})
 		
 		# do the Wilcoxon tests on each feature
 		wi.p.matrix[,mc.i] <- t(apply(t.input, 1, function(t.input){as.numeric(wilcox.test(x=t.input[setA],y=t.input[setB])[3])}))
@@ -71,7 +75,7 @@ aldex.ttest <- function(clr, conditions, paired.test=FALSE, hist.plot=FALSE) {
 	wi.eBH <- apply(wi.BH.matrix,1,mean)
 
 	z <- data.frame(we.ep, we.eBH, wi.ep, wi.eBH)
-	rownames(z) <- rownames(clr[[1]])
+	rownames(z) <- getFeatureNames(clr)
 	return(z)
 }
 

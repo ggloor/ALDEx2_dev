@@ -4,7 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE) {
+aldex.clr.function <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -28,26 +28,44 @@ aldex.clr <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE) {
 # number of Monte-Carlo Dirichlet instances: length(x[[1]][1,])
 # feature names: rownames(x[[1]])
 
+# coerce SummarizedExperiment reads into data.frame
+if (summarizedExperiment) {
+    reads <- data.frame(as.list(assays(reads,withDimnames=TRUE)))
+    if (verbose) {
+        print("converted SummarizedExperiment read count object into data frame")
+    }
+}
+
     # Fully validate and coerce the data into required formats
     # make sure that the multicore package is in scope and return if available 
-    is.multicore <- "parallel" %in% rownames(installed.packages())
-
-if (is.multicore == TRUE & useMC == TRUE){
-    print("multicore environment is is OK")
-    require(parallel)
+    has.BiocParallel <- FALSE
+    has.parallel <- FALSE
+    if ("BiocParallel" %in% rownames(installed.packages()) & useMC){
+        print("multicore environment is is OK -- using the BiocParallel package")
+        require(BiocParallel)
+        has.BiocParallel <- TRUE
     }
-if (is.multicore == FALSE | useMC ==FALSE){
-    print("operating in serial mode") 
-    is.multicore = FALSE
+    else if ("parallel" %in% rownames(installed.packages()) & useMC){
+        print("multicore environment is is OK -- using the parallel package")
+        require(parallel)
+        has.parallel <- TRUE
+    }
+    else {
+        print("operating in serial mode")
     }  
  
+    # make sure that mc.samples is an integer, despite it being a numeric type value
+    as.numeric(as.integer(mc.samples))
+
     #  remove all rows with reads less than the minimum set by minsum 
     minsum <- 0
     
     # remove any row in which the sum of the row is 0
     z <- as.numeric(apply(reads, 1, sum))
     reads <- as.data.frame( reads[(which(z > minsum)),]  )
+    if (verbose) print("removed rows with sums equal to zero")
     
+
     #  SANITY CHECKS ON THE DATA INPUT    
     if ( any( round(reads) != reads ) ) stop("not all reads are integers")
     if ( any( reads < 0 ) )             stop("one or more reads are negative")
@@ -79,13 +97,22 @@ if (verbose == TRUE) print("data format is OK")
     #total number of reads per sample
     
     # environment test, runs in multicore if possible
-    if (is.multicore == TRUE){
+    if (has.BiocParallel){
+        p <- bplapply( reads , 
+            function(col) {
+                q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
+                rownames(q) <- rn ; 
+                q })
+        names(p) <- names(reads)
+    }
+    else if (has.parallel) {
         p <- mclapply( reads , 
             function(col) {
                 q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
                 rownames(q) <- rn ; 
                 q }, mc.cores=getOption( "mc.cores", detectCores() ) )
-    }else{
+    }
+    else{
         p <- lapply( reads , 
             function(col) { 
                 q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
@@ -104,12 +131,19 @@ if (verbose == TRUE) print("dirichlet samples complete")
     # i.e., do a centered logratio transformation as per Aitchison
     
     #apply the function over elements in a list, that contains an array
-    if (is.multicore == TRUE){
+    if (has.BiocParallel){
+        l2p <- bplapply( p, function(m) {
+            apply( log2(m), 2, function(col) { col - mean(col) } )
+        })
+        names(l2p) <- names(p)
+    }
+    else if (has.parallel){
         l2p <- mclapply( p, function(m) {
             apply( log2(m), 2, function(col) { col - mean(col) } )
         },mc.cores=getOption("mc.cores", detectCores() ))
         
-    }else{
+    }
+    else{
         l2p <- lapply( p, function(m) {
             apply( log2(m), 2, function(col) { col - mean(col) } )
         })
@@ -121,7 +155,34 @@ if (verbose == TRUE) print("dirichlet samples complete")
     }
 if (verbose == TRUE) print("clr transformation complete")
     
-    return(l2p)
+    return(new("aldex.clr",reads=reads,mc.samples=mc.samples,verbose=verbose,useMC=useMC,analysisData=l2p))
 }
+
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Getters
+###
+
+setMethod("getMonteCarloInstances", signature(.object="aldex.clr"), function(.object) .object@analysisData)
+
+setMethod("getSampleIDs", signature(.object="aldex.clr"), function(.object) names(.object@analysisData))
+
+setMethod("getFeatures", signature(.object="aldex.clr"), function(.object) .object@analysisData[[1]][,1])
+
+setMethod("numFeatures", signature(.object="aldex.clr"), function(.object) length(.object@analysisData[[1]][,1]))
+
+setMethod("numMCInstances", signature(.object="aldex.clr"), function(.object) length(.object@analysisData[[1]][1,]))
+
+setMethod("getFeatureNames", signature(.object="aldex.clr"), function(.object) rownames(.object@analysisData[[1]]))
+
+setMethod("getReads", signature(.object="aldex.clr"), function(.object) .object@reads)
+
+setMethod("numConditions", signature(.object="aldex.clr"), function(.object) length(names(.object@analysisData)))
+
+setMethod("getMonteCarloReplicate", signature(.object="aldex.clr",i="numeric"), function(.object,i) .object@analysisData[[i]])
+
+setMethod("aldex.clr", signature(reads="data.frame"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, mc.samples, verbose, useMC, summarizedExperiment=FALSE))
+
+setMethod("aldex.clr", signature(reads="SummarizedExperiment"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, mc.samples, verbose, useMC, summarizedExperiment=TRUE))
 
 
