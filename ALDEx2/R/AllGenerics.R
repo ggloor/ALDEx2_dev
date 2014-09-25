@@ -2,20 +2,22 @@
 ### aldex.clr
 ###
 
-setGeneric("getMonteCarloInstances", function(.object, ...) standardGeneric("getMonteCarloInstances"))
+setGeneric("getMonteCarloInstances", function(.object) standardGeneric("getMonteCarloInstances"))
 
-setGeneric("getSampleIDs", function(.object, ...) standardGeneric("getSampleIDs"))
+setGeneric("getSampleIDs", function(.object) standardGeneric("getSampleIDs"))
 
-setGeneric("numFeatures", function(.object, ...) standardGeneric("numFeatures"))
+setGeneric("numFeatures", function(.object) standardGeneric("numFeatures"))
 
-setGeneric("numMCInstances", function(.object, ...) standardGeneric("numMCInstances"))
+setGeneric("getFeatures", function(.object) standardGeneric("getFeatures"))
 
-setGeneric("getFeatureNames", function(.object, ...) standardGeneric("getFeatureNames"))
+setGeneric("numMCInstances", function(.object) standardGeneric("numMCInstances"))
 
-setGeneric("getReads", function(.object, ...) standardGeneric("getReads"))
+setGeneric("getFeatureNames", function(.object) standardGeneric("getFeatureNames"))
 
-setGeneric("numConditions", function(.object, ...) standardGeneric("numConditions"))
+setGeneric("getReads", function(.object) standardGeneric("getReads"))
 
-setGeneric("getMonteCarloReplicate", function(.object, i=-1, ...) standardGeneric("getMonteCarloReplicate"))
+setGeneric("numConditions", function(.object) standardGeneric("numConditions"))
 
-setGeneric("aldex.clr", function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE, ...) standardGeneric("aldex.clr"), signature=c("reads"))
+setGeneric("getMonteCarloReplicate", function(.object, i=-1) standardGeneric("getMonteCarloReplicate"))
+
+setGeneric("aldex.clr", function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) standardGeneric("aldex.clr"), signature=c("reads"))

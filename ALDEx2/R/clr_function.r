@@ -165,7 +165,9 @@ if (verbose == TRUE) print("clr transformation complete")
 
 setMethod("getMonteCarloInstances", signature(.object="aldex.clr"), function(.object) .object@analysisData)
 
-setMethod("getSampleIDs", "aldex.clr", function(.object) names(.object@analysisData))
+setMethod("getSampleIDs", signature(.object="aldex.clr"), function(.object) names(.object@analysisData))
+
+setMethod("getFeatures", signature(.object="aldex.clr"), function(.object) .object@analysisData[[1]][,1])
 
 setMethod("numFeatures", signature(.object="aldex.clr"), function(.object) length(.object@analysisData[[1]][,1]))
 
