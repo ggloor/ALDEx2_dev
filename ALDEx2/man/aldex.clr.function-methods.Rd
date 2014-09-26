@@ -36,7 +36,7 @@ An explicit description of the input format for the \code{reads} object is shown
 \references{
     Please use the citation given by \code{citation(package="ALDEx")}.}
 \author{
-    Greg Gloor, Andrew Fernandes and Matt Links contributed to this code
+    Greg Gloor, Ruth Grace Wond, Andrew Fernandes and Matt Links contributed to this code
 }
 
 \seealso{

@@ -4,7 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr.function <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL) {
+aldex.clr.function <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL ) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -63,6 +63,7 @@ if (summarizedExperiment) {
     # remove any row in which the sum of the row is 0
     z <- as.numeric(apply(reads, 1, sum))
     reads <- as.data.frame( reads[(which(z > minsum)),]  )
+    
     if (verbose) print("removed rows with sums equal to zero")
     
 
@@ -81,11 +82,16 @@ if (summarizedExperiment) {
     if ( length(colnames(reads)) != length(unique(colnames(reads))) ) stop ("col names are not unique")
     if ( mc.samples < 128 ) warning("values are unreliable when estimated with so few MC smps")
 
+    # add a prior expection to all remaining reads that are 0
+    # this should be by a Count Zero Multiplicative approach, but in practice
+    # this is not necessary because of the large number of features
+    prior <- 0.5
+    reads[reads==0] <- prior
+
 if (verbose == TRUE) print("data format is OK")
 
     # ---------------------------------------------------------------------
     # Generate a Monte Carlo instance of the frequencies of each sample via the Dirichlet distribution,
-    # using the one-group objective reference prior of Berger and Bernardo.
     # returns frequencies for each feature in each sample that are consistent with the 
     # feature count observed as a proportion of the total counts per sample given 
     # technical variation (i.e. proportions consistent with error observed when resequencing the same library) 
@@ -100,7 +106,7 @@ if (verbose == TRUE) print("data format is OK")
     if (has.BiocParallel){
         p <- bplapply( reads , 
             function(col) {
-                q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
+                q <- t( rdirichlet( mc.samples, col ) ) ; 
                 rownames(q) <- rn ; 
                 q })
         names(p) <- names(reads)
@@ -108,14 +114,14 @@ if (verbose == TRUE) print("data format is OK")
     else if (has.parallel) {
         p <- mclapply( reads , 
             function(col) {
-                q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
+                q <- t( rdirichlet( mc.samples, col ) ) ; 
                 rownames(q) <- rn ; 
                 q }, mc.cores=getOption( "mc.cores", detectCores() ) )
     }
     else{
         p <- lapply( reads , 
             function(col) { 
-                q <- t( rdirichlet( mc.samples, col + 0.5 ) ) ; 
+                q <- t( rdirichlet( mc.samples, col ) ) ; 
                 rownames(q) <- rn ; q } )
     }
     

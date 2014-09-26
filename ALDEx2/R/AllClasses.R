@@ -13,7 +13,8 @@ setClass("aldex.clr",
         mc.samples="numeric",
         verbose="logical",
         useMC="logical",
-        analysisData="list")
+        analysisData="list"
+        )
 )
 
 validReads <- function(object) {

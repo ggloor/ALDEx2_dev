@@ -57,7 +57,7 @@
 }
 
 \details{
-  An aldex.clr object contains the Monte Carlo Dirochlet instances derived from estimating the technical variance of the raw read count data. It is created by the \code{aldex.clr.function}, which is invoked by the aldex.clr method. It consists of 4 attributes: the sample names, the feature names, the conditions vector (assigns each sample to a condition), and the Monte Carlo Dirochlet instances themselves. These can be accessed, along with information about the length of some attributes. A single Monte Carlo instance can also be retrieved.
+  An aldex.clr object contains the Monte Carlo Dirochlet instances derived from estimating the technical variance of the raw read count data. It is created by the \code{aldex.clr.function}, which is invoked by the aldex.clr method. It consists of four attributes: the sample names, the feature names, the conditions vector (assigns each sample to a condition), and the Monte Carlo Dirochlet instances themselves. These can be accessed, along with information about the length of some attributes. A single Monte Carlo instance can also be retrieved.
 }
 \value{
     The aldex.clr object contains the clr transformed values for each Monte-Carlo Dirichlet instance, which can be accessed through \code{getMonteCarloInstances(x)}, where \code{x} is the \code{clr} function output. Each list element is named by the sample ID. \code{getFeatures(x)} returns the features, \code{getSampleIDs(x)} returns sample IDs, and \code{getFeatureNames(x)} returns the feature names.
@@ -66,7 +66,7 @@
 \references{
   Please use the citation given by \code{citation(package="ALDEx")}.}
   \author{
-      Greg Gloor, Andrew Fernandes and Matt Links contributed to this code
+      Greg Gloor, Ruth Grace Wong, Andrew Fernandes and Matt Links contributed to this code
   }
   \seealso{
     \code{\link{aldex.clr.function}}
