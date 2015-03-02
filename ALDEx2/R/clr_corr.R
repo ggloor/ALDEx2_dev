@@ -3,7 +3,8 @@
 # a function that runs parametric Pearson's Product moment correlations
 # and nonparametric Spearman's rank correlations
 # returns the mean cor and rho estimates as well as p-values and BH asjusted p-values
-#Arianne Albert, April 23, 2014
+# Arianne Albert, April 23, 2014
+# changed inputs for the aldex.clr S4 method output (gg, March 2, 2015)
 #####
 
 #######################################
@@ -12,11 +13,17 @@
 aldex.corr <- function(clr, covar){ 
   # covar is the continuous variable with which to run correlations
   
-  # get dimentions, names, etc from the input data
-  smpl.ids <- names(clr)
-  feature.number <- length(clr[[1]][,1])
-  mc.instances <- length(clr[[1]][1,])
-  feature.names <- rownames(clr[[1]])
+#  # get dimentions, names, etc from the input data
+#  smpl.ids <- names(clr)
+#  feature.number <- length(clr[[1]][,1])
+#  mc.instances <- length(clr[[1]][1,])
+#  feature.names <- rownames(clr[[1]])
+
+  # get dimensions, names, etc from the input data
+  smpl.ids <- getSampleIDs(clr)
+    feature.number <- numFeatures(clr)
+    mc.instances <- numMCInstances(clr)
+    feature.names <- getFeatureNames(clr)
   
   if ( length( covar ) !=  length(names(clr)) )  stop("mismatch btw 'length(covar)' and 'length(names(clr))'")
   if ( is.numeric( covar ) != TRUE) stop("covar is not numeric")
