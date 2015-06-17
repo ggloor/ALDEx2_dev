@@ -3,7 +3,7 @@ Type: Package
 Title: Analysis of differential abundance taking sample variation into account
 Version: 0.99.3
 Suggests: parallel, BiocParallel
-Date: 2014-06-27
+Date: 2015-03-02
 Author: Greg Gloor, Ruth Grace Wong, Andrew Fernandes, Arianne Albert, Matt Links
 Maintainer: Greg Gloor <ggloor@uwo.ca>
 Depends: methods
