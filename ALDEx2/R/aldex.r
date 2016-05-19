@@ -1,4 +1,4 @@
-aldex <- function(reads, conditions, mc.samples=128, test="t", effect=TRUE, include.sample.summary=FALSE, verbose=FALSE){
+aldex <- function(reads, conditions, mc.samples=128, test="t", effect=TRUE, include.sample.summary=FALSE, verbose=FALSE, zero=FALSE){
     
     # wrapper function for the entire set of 
     print("aldex.clr: generating Monte-Carlo instances and clr values")
