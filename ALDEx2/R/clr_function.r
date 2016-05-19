@@ -1,10 +1,10 @@
 #  invocation:
 #  use selex dataset from ALDEx2 library
-#  x <- aldex.clr( reads, mc.samples=128, verbose=FALSE )
+#  x <- aldex.clr( reads, conditions, mc.samples=128, zero=FALSE, verbose=FALSE, useMC=FALSE )
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr.function <- function( reads, mc.samples=128, verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL ) {
+aldex.clr.function <- function( reads, conds, mc.samples=128, zero=FALSE, verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL ) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -86,6 +86,48 @@ if (summarizedExperiment) {
     # this should be by a Count Zero Multiplicative approach, but in practice
     # this is not necessary because of the large number of features
     prior <- 0.5
+    
+    # Zero removal Adjustment begins here
+    if (zero)
+    {
+    	if(verbose)
+    	{
+    		print("Performing zero-removal adjustment.")
+    	}
+	    # Variable Declaration for Zero-Removal Adjustment
+		sample.indices <- as.numeric(seq(1, length(conds),1))	# Indicies of samples
+		feature.indices <- as.numeric(seq(1, nrow(reads), 1))	# Indicies of reads 
+
+		# Lists to store indicies of samples per-condition
+	    indicies <- vector("list", length(unique(conds)))	
+		neg.indicies <- vector("list", length(unique(conds)))
+		zero.result <- vector("list", length(unique(conds)))	# list to hold result
+		condition.list <- vector("list", length(unique(conds)))	# list to store conditions
+
+
+		for (i in 1:length(unique(conds)))
+		{
+			condition.list[[i]] <- which(conds == unique(conds)[i]) # Condition list
+			sub.set <- as.numeric(condition.list[[i]])			# Subset of that cond
+	
+			different.conds <- setdiff(sample.indices, sub.set)		# Negation of conditions
+	
+			for (j in 1:nrow(reads))
+			{
+				if ((sum(reads[j,sub.set]) == 0) & (sum(reads[j,different.conds]) > 0))
+				{
+					indicies[[i]] <- c(indicies[[i]],j)			# Save the indexes 
+				}
+			}
+			neg.indicies[[i]] <- setdiff(feature.indices, indicies[[i]])
+		}
+		if (verbose)
+		{
+			print("Extracted zero-count feature indicies per condition.")
+		}
+	}
+    
+    
     reads[reads==0] <- prior
 
 if (verbose == TRUE) print("data format is OK")
@@ -136,25 +178,48 @@ if (verbose == TRUE) print("dirichlet samples complete")
     # Take the log2 of the frequency and subtract the geometric mean log2 frequency per sample
     # i.e., do a centered logratio transformation as per Aitchison
     
-    #apply the function over elements in a list, that contains an array
-    if (has.BiocParallel){
-        l2p <- bplapply( p, function(m) {
-            apply( log2(m), 2, function(col) { col - mean(col) } )
-        })
-        names(l2p) <- names(p)
-    }
-    else if (has.parallel){
-        l2p <- mclapply( p, function(m) {
-            apply( log2(m), 2, function(col) { col - mean(col) } )
-        },mc.cores=getOption("mc.cores", detectCores() ))
-        
-    }
-    else{
-        l2p <- lapply( p, function(m) {
-            apply( log2(m), 2, function(col) { col - mean(col) } )
-        })
-    }
-    
+    # apply the function over elements in a list, that contains an array
+    # If Zero removal was NOT specified
+    if (!zero)
+    {
+	    if (has.BiocParallel){
+	        l2p <- bplapply( p, function(m) {
+	            apply( log2(m), 2, function(col) { col - mean(col) } )
+	        })
+	        names(l2p) <- names(p)
+	    }
+	    else if (has.parallel){
+	        l2p <- mclapply( p, function(m) {
+	            apply( log2(m), 2, function(col) { col - mean(col) } )
+	        },mc.cores=getOption("mc.cores", detectCores() ))
+	        
+	    }
+	    else{
+	        l2p <- lapply( p, function(m) {
+	            apply( log2(m), 2, function(col) { col - mean(col) } )
+	        })
+	    }
+	}
+	else	# Zero removal is selected
+	{
+		for (i in 1:length(unique(conds)))
+		{
+			zero.result[[i]] <- lapply( p[condition.list[[i]]], function(m) { 
+				apply(log2(m), 2, function(x){mean(x[neg.indicies[[i]]])})
+			})
+		}
+		set.rev <- unlist(zero.result, recursive=FALSE) # Unlist once to aggregate samples
+
+		p.copy <- p
+		for (i in 1:length(set.rev))
+		{
+			p.copy[[i]] <- as.data.frame(p.copy[[i]])
+			p[[i]] <- apply(log2(p.copy[[i]]),1, function(x){ x - (set.rev[[i]])})
+			p[[i]] <- t(p[[i]])
+		}
+		l2p <- p	# Save the set in order to generate the aldex.clr variable
+	}
+	    
     # sanity check on data
     for ( i in 1:length(l2p) ) {
         if ( any( ! is.finite( l2p[[i]] ) ) ) stop("non-finite log-frequencies were unexpectedly computed")
@@ -187,8 +252,8 @@ setMethod("numConditions", signature(.object="aldex.clr"), function(.object) len
 
 setMethod("getMonteCarloReplicate", signature(.object="aldex.clr",i="numeric"), function(.object,i) .object@analysisData[[i]])
 
-setMethod("aldex.clr", signature(reads="data.frame"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, mc.samples, verbose, useMC, summarizedExperiment=FALSE))
+setMethod("aldex.clr", signature(reads="data.frame"), function(reads, conds, mc.samples=128, zero=FALSE, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, conds, mc.samples, zero, verbose, useMC, summarizedExperiment=FALSE))
 
-setMethod("aldex.clr", signature(reads="SummarizedExperiment"), function(reads, mc.samples=128, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, mc.samples, verbose, useMC, summarizedExperiment=TRUE))
+setMethod("aldex.clr", signature(reads="RangedSummarizedExperiment"), function(reads, conds, mc.samples=128, zero=FALSE, verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, conds, mc.samples, zero, verbose, useMC, summarizedExperiment=TRUE))
 
 
