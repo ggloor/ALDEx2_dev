@@ -2,7 +2,7 @@
 \alias{aldex.clr}
 \alias{aldex.clr.function}
 \alias{aldex.clr,data.frame-method}
-\alias{aldex.clr,SummarizedExperiment-method}
+\alias{aldex.clr,RangedSummarizedExperiment-method}
 
 \title{
     Compute an \code{aldex.clr} Object 
@@ -12,31 +12,38 @@
     This is the input for all further analyses.
 }
 \usage{
-aldex.clr(reads, mc.samples = 128, verbose = FALSE, useMC=FALSE)
+	aldex.clr(reads, conditions, mc.samples = 128, zero=FALSE, verbose=FALSE, useMC=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{reads}{
-        a non-negative, integer-only containing \code{data.frame} or \code{SummarizedExperiment} that has unique names for all rows and columns, where each row is a different gene and each column represents a sequencing read-count. Rows with 0 reads in each sample are deleted prior to analysis}
-  \item{mc.samples}{
-        the number of Monte Carlo samples to use to estimate the underlying distributions; since we are estimating central tendencies, 128 is usually sufficient
-}
-  \item{verbose}{
-        Print diagnostic information while running. Useful only for debugging if fails on large datasets
-}  
-\item{useMC}{
-    use multicore by default (FALSE). Multi core processing will be attempted with the BiocParallel package, then the parallel package. If neither are installed, serial processing will be used.
-}
+	\item{reads}{
+    	A \code{data.frame} or \code{RangedSummarizedExperiment} object containing non-negative integers only and with unique names for all rows and columns, where each row is a different gene and each column represents a sequencing read-count. Rows with 0 reads in each sample are deleted prior to analysis.
+    }
+    \item{conditions}{
+  		A \code{vector} containing a descriptor for the samples, allowing them to be grouped and compared.
+  	}
+  	\item{mc.samples}{
+        The number of Monte Carlo samples to use to estimate the underlying distributions; since we are estimating central tendencies, 128 is usually sufficient.
+    }
+  	\item{zero}{
+  		A \code{logical} variable default (FALSE) indicating if zero-removal will be utilized during the CLR process. If (TRUE) Genes with counts of 0 across all samples per each condition will be removed.
+  	}
+ 	\item{verbose}{
+        Print diagnostic information while running. Useful only for debugging if fails on large datasets.
+	}
+	\item{useMC}{
+    	Use multicore by default (FALSE). Multi core processing will be attempted with the BiocParallel package, then the parallel package. If neither are installed, serial processing will be used.
+	}
 }
 \details{
-An explicit description of the input format for the \code{reads} object is shown under `Examples', below.}
+	An explicit description of the input format for the \code{reads} object is shown under `Examples', below.}
 \value{
     The object produced by the \code{clr} function contains the clr transformed values for each Monte-Carlo Dirichlet instance, which can be accessed through \code{getMonteCarloInstances(x)}, where \code{x} is the \code{clr} function output. Each list element is named by the sample ID. \code{getFeatures(x)} returns the features, \code{getSampleIDs(x)} returns sample IDs, and \code{getFeatureNames(x)} returns the feature names.
 }
 \references{
     Please use the citation given by \code{citation(package="ALDEx")}.}
 \author{
-    Greg Gloor, Ruth Grace Wond, Andrew Fernandes and Matt Links contributed to this code
+    Greg Gloor, Ruth Grace Wong, Andrew Fernandes, Matt Links and Jia Wu contributed to this code.
 }
 
 \seealso{
@@ -48,8 +55,8 @@ An explicit description of the input format for the \code{reads} object is shown
 \examples{
 
     # The 'reads' data.frame or
-    # SummarizedExperiment object should have
-    # row and column names that are unique,
+    # RangedSummarizedExperiment object should
+    # have row and column names that are unique,
     # and looks like the following:
     #
     #              T1a T1b  T2  T3  N1  N2  Nx
@@ -62,6 +69,7 @@ An explicit description of the input format for the \code{reads} object is shown
     #       ... many more rows ...
     
     data(selex)
-    x <- aldex.clr(selex, mc.samples = 2, verbose = FALSE)
+    conds <- c(rep("NS", 7), rep("S", 7))
+    x <- aldex.clr(selex, conds, mc.samples=2, zero=FALSE, verbose=FALSE)
 
 }
