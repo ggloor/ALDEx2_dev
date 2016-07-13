@@ -59,6 +59,6 @@ aldex.glm(clr, conditions, useMC=FALSE)
     # for the selex dataset, conditions <- c(rep("N", 7), rep("S", 7))
     data(selex)
     conds <- c(rep("NS", 7), rep("S", 7))
-    x <- aldex.clr(selex, conds, mc.samples=1, zero=FALSE)
+    x <- aldex.clr(selex, conds, mc.samples=1, input="default")
     glm.test <- aldex.glm(x, conditions)
 }

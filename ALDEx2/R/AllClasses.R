@@ -12,7 +12,7 @@ setClass("aldex.clr",
         reads="data.frame",
         conds="data.frame",
         mc.samples="numeric",
-        zero="logical",
+        input="character",
         verbose="logical",
         useMC="logical",
         analysisData="list"

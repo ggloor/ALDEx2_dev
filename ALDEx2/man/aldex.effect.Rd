@@ -73,6 +73,6 @@ aldex.effect(clr, conditions, verbose = TRUE, include.sample.summary = FALSE,
     # for the selex dataset, conditions <- c(rep("N", 7), rep("S", 7))
     data(selex)
     conds <- c(rep("NS", 7), rep("S", 7))
-    x <- aldex.clr(selex, conds, mc.samples=2, zero=FALSE)
+    x <- aldex.clr(selex, conds, mc.samples=2, input="default")
     effect.test <- aldex.effect(x, conds)
 }

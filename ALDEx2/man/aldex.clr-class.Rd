@@ -92,7 +92,7 @@
 	conds <- c(rep("NS", 7), rep("S", 7))
 
     # x is an object of type aldex.clr
-    x <- aldex.clr(selex, conds, mc.samples = 2, zero=FALSE, verbose = FALSE)
+    x <- aldex.clr(selex, conds, mc.samples = 2, input="default", verbose = FALSE)
 
     # get all of the Monte Carlo Dirochlet instances
     monteCarloInstances <- getMonteCarloInstances(x)

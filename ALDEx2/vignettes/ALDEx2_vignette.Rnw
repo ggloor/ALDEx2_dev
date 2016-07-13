@@ -68,12 +68,12 @@ aldex.plot(x, type="MW", test="welch")
 
 The modular approach exposes the underlying intermediate data so that users can generate their own tests. The simple approach outlined above just calls \texttt{aldex.clr, aldex.ttest, aldex.effect} in turn and then merges the data into one object.
 
-The workflow for the modular approach first generates instances of the centred log-ratio transformed values. There are three inputs: counts table, a vector of conditions, the number of Monte-Carlo instances, a flag indicating whether or not zero-removal adjustment should be applied, and level of verbosity (TRUE or FALSE).  We recommend 128 or more mc.samples for the t-test, 1000 for a rigorous effect size calculation, and at least 16 for ANOVA.
+The workflow for the modular approach first generates instances of the centred log-ratio transformed values. There are three inputs: counts table, a vector of conditions, the number of Monte-Carlo instances, a string indicating if iqlr, zero or default feature adjustment is required, and level of verbosity (TRUE or FALSE).  We recommend 128 or more mc.samples for the t-test, 1000 for a rigorous effect size calculation, and at least 16 for ANOVA.
 
 This operation is fast.
 
 <<echo=TRUE, eval=TRUE, results=hide>>=
-x <- aldex.clr(selex, conds, mc.samples=16, zero=TRUE, verbose=TRUE)  
+x <- aldex.clr(selex, conds, mc.samples=16, input="default", verbose=TRUE)  
 @
 
 The next operation performs the Welch's t and Wilcoxon rank test for the instance when there are only two conditions. There are three inputs: the aldex object from aldex.clr, the vector of conditions, whether a paired test should be conducted  or not (TRUE or FALSE).

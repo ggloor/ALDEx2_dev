@@ -12,7 +12,7 @@
     This is the input for all further analyses.
 }
 \usage{
-	aldex.clr(reads, conditions, mc.samples = 128, zero=FALSE, verbose=FALSE, useMC=FALSE)
+	aldex.clr(reads, conditions, mc.samples = 128, input="default", verbose=FALSE, useMC=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -25,8 +25,8 @@
   	\item{mc.samples}{
         The number of Monte Carlo samples to use to estimate the underlying distributions; since we are estimating central tendencies, 128 is usually sufficient.
     }
-  	\item{zero}{
-  		A \code{logical} variable default (FALSE) indicating if zero-removal will be utilized during the CLR process. If (TRUE) Genes with counts of 0 across all samples per each condition will be removed.
+  	\item{input}{
+  		A \code{character} variable default "default" indicating which features to retain for the Geometric Mean calculation. Using "iqlr" accounts for data with systematic variation and centers the features on the set of invariant featuers. Using "zero" is a more extreme case where there are many nonzero features in one condition but many zeros in another.
   	}
  	\item{verbose}{
         Print diagnostic information while running. Useful only for debugging if fails on large datasets.
@@ -70,6 +70,6 @@
     
     data(selex)
     conds <- c(rep("NS", 7), rep("S", 7))
-    x <- aldex.clr(selex, conds, mc.samples=2, zero=FALSE, verbose=FALSE)
+    x <- aldex.clr(selex, conds, mc.samples=2, input="default", verbose=FALSE)
 
 }
