@@ -12,7 +12,7 @@
 # The 'reads' data.frame MUST have row
 # and column names that are unique, and
 # looks like the following:
-#
+# 
 #              T1a T1b  T2  T3  N1  N2
 #   Gene_00001   0   0   2   0   0   1
 #   Gene_00002  20   8  12   5  19  26
@@ -24,30 +24,49 @@
 # i.e.
 # conds <- c(rep("A", 10), rep("B", 10))
 # 
-# The 'input' input can be "zero", "iqlr", "default" or ""
+# The 'input' input can be "zero", "iqlr", "default", "" or numeric for advanced
+# users. 
+# 
 # 'input' defaults to "default" if either no parameters or incorrect parameters 
 # given
+# a numeric 'input' variable is only for users who understand the set of
+# invariant features in their dataset
 
 ##### Determines the mode to be used in ALDEx2
 ##### Default is all features
 set.mode <- function(input="default", reads, conds)
 {
-	input <- as.character(input)
-	
-	if (input == "zero") {
-		print("Computing zero removal.")
-		features <- zero.features(reads,conds)
-	} else if (input == "iqlr") {
-		print("Computing iqlr centering.")
-		features <- iqlr.features(reads,conds)
-	} else if (input == "default" | input == "") {
-		print("Computing default centering.")
-		features <- default.features(reads,conds)
+
+	if (is.character(input))
+	{
+		if (input == "zero") {
+			print("Computing zero removal.")
+			features <- zero.features(reads,conds)
+		} else if (input == "iqlr") {
+			print("Computing iqlr centering.")
+			features <- iqlr.features(reads,conds)
+		} else if (input == "default" | input == "") {
+			print("Computing default centering.")
+			features <- default.features(reads,conds)
+		} else {
+			print(paste("Input: '", input, "' unrecognized. Using default features.", sep=""))
+			features <- default.features(reads,conds)
+		}
+		return(features)
 	} else {
-		print(paste("Input: '", input, "' unrecognized. Using default features.", sep=""))
-		features <- default.features(reads,conds)
+
+		# Prevent input of null features for centering
+		if (length(input) == 0)
+		{
+			stop("Number of features can not be 0. Please check your input vector.")
+		}
+		else
+		{
+			# Return user specified indicies for centering
+			features <- custom.features(input, conds)
+			return(features)
+		}
 	}
-	return(features)
 }
 
 ##### Returns a list of "n" vectors where n is the number of conditions 
@@ -122,6 +141,23 @@ zero.features <- function(reads, conds)
 
 	return(neg.indicies)
 }
+
+##### Allows the user to submit a custom set of indicies for centering 
+##### Returns a list of "n" vectors where "n" is the number of conditions
+custom.features <- function(input, conds)
+{
+
+	custom.indicies <- vector("list", length(unique(conds)))
+
+	# Set up the format that downstream clr_function.r is expecting
+	for (i in 1: length(unique(conds)))
+	{
+		custom.indicies[[i]] <- input
+	}
+	
+	return(custom.indicies)
+}
+
 
 ##### Returns a vector containing the indicies of every feature
 default.features <- function(reads, conds)
