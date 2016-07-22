@@ -56,7 +56,7 @@ aldex.corr(clr, covar)
     \code{\link{selex}}
 }
 \examples{
-    # x is the output of the \code{x <- aldex.clr(data, mc.samples)} function
+    # x is the output of the \code{x <- aldex.clr(data, conds, mc.samples, input="default", useMC)} function
     # conditions is a description of the data
     # aldex.ttest(clr, covar)
 }

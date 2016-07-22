@@ -20,9 +20,12 @@ ALDEx2_0.99.1.tar.gz. This version contains bug fixes and
 formatting changes that make it compatible with the Bioconductor 
 rules. This version also has parallel execution turned ##OFF# by 
 default. To enable parallel execution for aldex.clr, aldex.glm and
-aldex.effect set useMC=TRUE when invoking the functions. 
+aldex.effect set useMC=TRUE when invoking the functions. This version of ALDEx2 is
+able to accept a set of custom features for centering all features against. Use 
+?aldex.clr for more information.
 
-Current version: ALDEx2_0.99.1.tar.gz supplants ALDEx2_2.0.7.2.tar.gz
+
+Current version: ALDEx2_1.1.5.tar.gz
 Current manual: manual/ALDE2_manual.pdf
 Current vinette: ALDEx2_vignette.pdf
 

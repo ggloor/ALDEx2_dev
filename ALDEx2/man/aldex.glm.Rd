@@ -58,7 +58,7 @@ aldex.glm(clr, conditions, useMC=FALSE)
     # conditions is a description of the data
     # for the selex dataset, conditions <- c(rep("N", 7), rep("S", 7))
     data(selex)
-    x <- aldex.clr(selex, mc.samples=1)
-    conditions <- c(rep("N", 7), rep("S", 7))
+    conds <- c(rep("NS", 7), rep("S", 7))
+    x <- aldex.clr(selex, conds, mc.samples=1, input="default")
     glm.test <- aldex.glm(x, conditions)
 }
