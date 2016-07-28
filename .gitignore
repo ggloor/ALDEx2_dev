@@ -1,2 +1,6 @@
 .DS_Store
-*.tar.gz
+*.Rcheck/*
+*Development/*
+ALDEx2.Rcheck/00check.log
+
+ALDEx2.Rcheck/00check.log
