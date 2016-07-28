@@ -1,5 +1,19 @@
 ALDEx2
 ======
+To install this development version:
+
+Install the release version at bioconductor [https://bioconductor.org/packages/release/bioc/html/ALDEx2.html]
+
+Download the ALDEx2_n.n.n.tar.gz file to your computer
+
+Inside an R session type: 
+
+install.packages("path/to/install.packages("ALDEx2_n.n.n.tar.gz", repos=NULL, type="source")
+
+You should be good to go. The only issue may be missing dependencies.
+These may have to be installed from Bioconductor directly if the 
+development and release versions are wildely out of sync.
+
 ALDEx tool to examine compositional high-throughput sequence data.
 
 A differential relative count abundance analysis for the comparison of 
