@@ -22,8 +22,11 @@ aldex.effect <- function(clr, conditions, verbose=TRUE, include.sample.summary=F
     # ---------------------------------------------------------------------
 
     # sanity check to ensure only two conditons passed to this function
+    # keeps levels in same order as input in conditions
     conditions <- as.factor( conditions )
     levels     <- levels( conditions )
+    first(conditions[1])
+    levels     <- relevel( conditions, first )
 
     if ( length( conditions ) !=  numConditions(clr) ) stop("mismatch btw 'length(conditions)' and 'ncol(reads)'")
 

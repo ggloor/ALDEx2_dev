@@ -4,7 +4,6 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr.function <- function( reads, conds=NULL, mc.samples=128, denom="all", verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL ) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -80,15 +79,6 @@ if (summarizedExperiment) {
     # this should be by a Count Zero Multiplicative approach, but in practice
     # this is not necessary because of the large number of features
     prior <- 0.5
-
-    # set default conditions if conds is NULL
-    if(is.null(conds)) {
-      conds <- rep("A", ncol(reads))
-      denom="all"
-    }
-   if(denom=="all") {
-      conds <- rep("A", ncol(reads))
-   }
 
     # This extracts the set of features to be used in the geometric mean computation
     feature.subset <- aldex.set.mode(reads, conds, denom)

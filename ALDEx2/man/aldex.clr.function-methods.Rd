@@ -12,7 +12,6 @@
     This is the input for all further analyses.
 }
 \usage{
-    aldex.clr(reads, conds=NULL, mc.samples = 128, denom="all", verbose=FALSE, useMC=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,7 +23,6 @@
     }
     \item{conds}{
         A \code{vector} containing a descriptor for the samples, allowing them to
-        be grouped and compared. Default NULL will set denom to all.
       }
       \item{mc.samples}{
         The number of Monte Carlo samples to use to estimate the underlying
@@ -97,6 +95,5 @@
     #subset for efficiency
     selex <- selex[1201:1600,]
     conds <- c(rep("NS", 7), rep("S", 7))
-    x <- aldex.clr(selex, conds=NULL, mc.samples=2, denom="all", verbose=FALSE)
 
 }
