@@ -4,6 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
+aldex.clr.function <- function( reads, conds=NULL, mc.samples=128, denom="all", verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL ) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -85,6 +86,15 @@ if (summarizedExperiment) {
 
 
     reads <- reads + prior
+
+    # set default conditions if conds is NULL
+    if(is.null(conds)) {
+      conds <- rep("A", ncol(reads))
+      denom="all"
+    }
+   if(denom=="all") {
+      conds <- rep("A", ncol(reads))
+   }
 
 if (verbose == TRUE) print("data format is OK")
 

@@ -5,7 +5,6 @@
     determines the median clr abundance of the feature in all samples and in groups
     determines the median difference between the two groups
     determines the median variation within each two group
-    determines the effect size, which is the median of the ratio of the between group difference and the larger of the variance within groups
     determines the effect size, which is the median of the ratio of the between group difference and the larger of the variance within groups. The measure is asymptotically identical to the median absolute deviation. The deviation is signed for difference between groups.
 }
 \usage{
