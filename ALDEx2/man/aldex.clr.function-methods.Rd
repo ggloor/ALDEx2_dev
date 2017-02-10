@@ -38,10 +38,11 @@
           for data with systematic variation and uses the features that are
           between the first and third quartile of the variance of the clr values
           across all samples. Using "zero" uses the non-zero features in each grop
-          as the denominator. This approach is an extreme case where there are
-          many nonzero features in one condition but many zeros in another. It is also
+          as the denominator. This approach is one way to handle an extreme case
+          where there are many nonzero features in one condition but many zeros in
+          another. "median" uses the geometric median rather than the mean. It is also
           possible to supply a vector of row indices to use as the denominator.
-          Here, the experimentalist is determining a-priori which rows are thought
+          Here, the experimentalist is determining apriori which rows are thought
           to be invariant. In the case of RNA-seq, this could include ribosomal
           protein genes and and other house-keeping genes.
       }

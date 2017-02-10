@@ -140,7 +140,7 @@ if (verbose == TRUE) print("dirichlet samples complete")
     # apply the function over elements in a list, that contains an array
 
     # DEFAULT
-    if(length(feature.subset) == nr)
+    if(denom=="all")
     {
         # Default ALDEx2
         if (has.BiocParallel){
@@ -154,8 +154,22 @@ if (verbose == TRUE) print("dirichlet samples complete")
                 apply( log2(m), 2, function(col) { col - mean(col) } )
             })
         }
+    }else if (denom=="median"){
+           # ALDEx2 with median subtracted
+        if (has.BiocParallel){
+            l2p <- bplapply( p, function(m) {
+                apply( log2(m), 2, function(col) { col - median(col) } )
+            })
+            names(l2p) <- names(p)
+        }
+        else{
+            l2p <- lapply( p, function(m) {
+                apply( log2(m), 2, function(col) { col - median(col) } )
+            })
+        }
+
     } else {
-        ## IQLR or ZERO
+        ## IQLR or ZERO or user-defined
         feat.result <- vector("list", length(unique(conds))) # Feature Gmeans
         condition.list <- vector("list", length(unique(conds)))    # list to store conditions
 
