@@ -22,11 +22,8 @@ aldex.effect <- function(clr, conditions, verbose=TRUE, include.sample.summary=F
     # ---------------------------------------------------------------------
 
     # sanity check to ensure only two conditons passed to this function
-    # keeps levels in same order as input in conditions
     conditions <- as.factor( conditions )
-
-    conditions <- relevel( conditions, as.character(conditions[1]) )
-    levels <- levels( conditions )
+    levels     <- levels( conditions )
 
     if ( length( conditions ) !=  numConditions(clr) ) stop("mismatch btw 'length(conditions)' and 'ncol(reads)'")
 
@@ -135,23 +132,17 @@ if (verbose == TRUE) print("between group difference calculated")
     win.max <- matrix( 0 , nrow=nr , ncol=ncol.wanted )
     l2d$effect <- matrix( 0 , nrow=nr , ncol=ncol(l2d$btw) )
     rownames(l2d$effect) <- rn
-    # added minimum Bayes factor calculation from Goodman Ann. Int Medicine 130:1005-1013
-    # mbf
-    l2d$mbf <- matrix( 0 , nrow=nr , ncol=ncol(l2d$btw) )
-    rownames(l2d$mbf) <- rn
 
 ###the number of elements in l2d$btw and l2d$win may leave a remainder when
   #recycling these random vectors. Warnings are suppressed because this is not an issue
   #for this calculation. In fact, any attempt to get rid of this error would
   #decrease our power as one or both vectors would need to be truncated gg 20/06/2013
-	MBF <- function(x) {exp(-1 * (x^2)/2)}
+
     options(warn=-1)
 
     for ( i in 1:nr ) {
         win.max[i,] <- apply( ( rbind( l2d$win[[1]][i,] , l2d$win[[2]][i,] ) ) , 2 , max )
-        # mbf
         l2d$effect[i,] <- l2d$btw[i,] / win.max[i,]
-        l2d$mbf[i,] <- MBF(l2d$btw[i,] / win.max[i,])
     }
 
     options(warn=0)
@@ -172,8 +163,6 @@ if (verbose == TRUE) print("between group difference calculated")
 if (verbose == TRUE) print("group summaries calculated")
 
     effect  <- t(apply( l2d$effect, 1, median ))
-    # mbf
-    mbf  <- t(apply( l2d$mbf, 1, median ))
     overlap <- apply( l2d$effect, 1, function(row) { min( aitchison.mean( c( sum( row < 0 ) , sum( row > 0 ) ) + 0.5 ) ) } )
 if (verbose == TRUE) print("effect size calculated")
 
@@ -183,8 +172,7 @@ if (verbose == TRUE) print("effect size calculated")
         rab = rab,
         diff = l2s,
         effect = effect,
-        overlap = overlap,
-        mbf = mbf
+        overlap = overlap
     )
 
 if (verbose == TRUE) print("summarizing output")
@@ -208,8 +196,6 @@ if (verbose == TRUE) print("summarizing output")
    }
    y.rv[,"effect"] <- data.frame(t(rv$effect))
    y.rv[,"overlap"] <- data.frame(rv$overlap)
-   # mbf
-   y.rv[,"mbf"] <- data.frame(t(rv$mbf))
 
     return(y.rv)
 

@@ -2,6 +2,7 @@
 \alias{aldex.clr}
 \alias{aldex.clr.function}
 \alias{aldex.clr,data.frame-method}
+\alias{aldex.clr,matrix-method}
 \alias{aldex.clr,RangedSummarizedExperiment-method}
 
 \title{
@@ -12,7 +13,7 @@
     This is the input for all further analyses.
 }
 \usage{
-    aldex.clr(reads, conds=NULL, mc.samples = 128, denom="all", verbose=FALSE, useMC=FALSE)
+    aldex.clr(reads, conds, mc.samples = 128, denom="all", verbose=FALSE, useMC=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,7 +25,7 @@
     }
     \item{conds}{
         A \code{vector} containing a descriptor for the samples, allowing them to
-        be grouped and compared. Default NULL will use all features for the denominator.
+        be grouped and compared.
       }
       \item{mc.samples}{
         The number of Monte Carlo samples to use to estimate the underlying
@@ -37,12 +38,11 @@
           uses the geometric mean abundance of all features. Using "iqlr" accounts
           for data with systematic variation and uses the features that are
           between the first and third quartile of the variance of the clr values
-          across all samples. Using "zero" uses the non-zero features in each grop
-          as the denominator. This approach is one way to handle an extreme case
-          where there are many nonzero features in one condition but many zeros in
-          another. "median" uses the geometric median rather than the mean. It is also
+          across all sample. Using "zero" uses the non-zero features in each grop
+          as the denominator. This approach is an extreme case where there are
+          many nonzero features in one condition but many zeros in another. It is also
           possible to supply a vector of row indices to use as the denominator.
-          Here, the experimentalist is determining apriori which rows are thought
+          Here, the experimentalist is determining a-priori which rows are thought
           to be invariant. In the case of RNA-seq, this could include ribosomal
           protein genes and and other house-keeping genes.
       }
@@ -98,6 +98,6 @@
     #subset for efficiency
     selex <- selex[1201:1600,]
     conds <- c(rep("NS", 7), rep("S", 7))
-    x <- aldex.clr(selex, conds=NULL, mc.samples=2, denom="all", verbose=FALSE)
+    x <- aldex.clr(selex, conds, mc.samples=2, denom="all", verbose=FALSE)
 
 }

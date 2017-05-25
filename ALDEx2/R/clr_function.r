@@ -4,7 +4,7 @@
 #  this function generates the centre log-ratio transform of Monte-Carlo instances
 #  drawn from the Dirichlet distribution.
 
-aldex.clr.function <- function( reads, conds=NULL, mc.samples=128, denom="all", verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL ) {
+aldex.clr.function <- function( reads, conds, mc.samples=128, denom="all", verbose=FALSE, useMC=FALSE, summarizedExperiment=NULL ) {
 
 # INPUT
 # The 'reads' data.frame MUST have row
@@ -87,15 +87,6 @@ if (summarizedExperiment) {
 
     reads <- reads + prior
 
-    # set default conditions if conds is NULL
-    if(is.null(conds)) {
-      conds <- rep("A", ncol(reads))
-      denom="all"
-    }
-   if(denom=="all") {
-      conds <- rep("A", ncol(reads))
-   }
-
 if (verbose == TRUE) print("data format is OK")
 
     # ---------------------------------------------------------------------
@@ -140,7 +131,7 @@ if (verbose == TRUE) print("dirichlet samples complete")
     # apply the function over elements in a list, that contains an array
 
     # DEFAULT
-    if(denom=="all")
+    if(length(feature.subset) == nr)
     {
         # Default ALDEx2
         if (has.BiocParallel){
@@ -154,22 +145,8 @@ if (verbose == TRUE) print("dirichlet samples complete")
                 apply( log2(m), 2, function(col) { col - mean(col) } )
             })
         }
-    }else if (denom=="median"){
-           # ALDEx2 with median subtracted
-        if (has.BiocParallel){
-            l2p <- bplapply( p, function(m) {
-                apply( log2(m), 2, function(col) { col - median(col) } )
-            })
-            names(l2p) <- names(p)
-        }
-        else{
-            l2p <- lapply( p, function(m) {
-                apply( log2(m), 2, function(col) { col - median(col) } )
-            })
-        }
-
     } else {
-        ## IQLR or ZERO or user-defined
+        ## IQLR or ZERO
         feat.result <- vector("list", length(unique(conds))) # Feature Gmeans
         condition.list <- vector("list", length(unique(conds)))    # list to store conditions
 
@@ -225,6 +202,8 @@ setMethod("numConditions", signature(.object="aldex.clr"), function(.object) len
 setMethod("getMonteCarloReplicate", signature(.object="aldex.clr",i="numeric"), function(.object,i) .object@analysisData[[i]])
 
 setMethod("aldex.clr", signature(reads="data.frame"), function(reads, conds, mc.samples=128, denom="all", verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, conds, mc.samples, denom, verbose, useMC, summarizedExperiment=FALSE))
+
+setMethod("aldex.clr", signature(reads="matrix"), function(reads, conds, mc.samples=128, denom="all", verbose=FALSE, useMC=FALSE) aldex.clr.function(as.data.frame(reads), conds, mc.samples, denom, verbose, useMC, summarizedExperiment=FALSE))
 
 setMethod("aldex.clr", signature(reads="RangedSummarizedExperiment"), function(reads, conds, mc.samples=128, denom="all", verbose=FALSE, useMC=FALSE) aldex.clr.function(reads, conds, mc.samples, denom, verbose, useMC, summarizedExperiment=TRUE))
 
