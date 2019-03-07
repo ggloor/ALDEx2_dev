@@ -1,5 +1,7 @@
 ALDEx2
 ======
+##Note: you should be using the ALDEx_bioc repository instead!
+
 To install this development version:
 
 Install the release version at bioconductor [https://bioconductor.org/packages/release/bioc/html/ALDEx2.html]
